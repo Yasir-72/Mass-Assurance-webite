@@ -3,11 +3,11 @@ import Image from "next/image";
 
 export default function Herosection() {
   return (
-    <section className="relative pt-16 bg-black overflow-hidden mt-28 w-full sm:px-16 lg:px-30">
+    <section className="relative  bg-black overflow-hidden mt-28 w-full sm:px-16 lg:px-30">
       <div className="relative z-20">
         <div className="max-w-4xl text-white">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            Mas Assurance  
+            Mass Assurance  
           </h1>
 
           {/* 1st paragraph with stripes */}
@@ -24,7 +24,7 @@ export default function Herosection() {
           </p>
 
           {/* 2nd paragraph */}
-          <p className="text-lg text-white/90">
+          <p className="text-lg text-white/90 italic">
             MAS Assurance is a premier risk assurance company, offering top-tier
             extended warranty and comprehensive service solutions exclusively
             for premium and luxury vehicles. We are driven by a singular

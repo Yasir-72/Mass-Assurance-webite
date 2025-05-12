@@ -48,11 +48,11 @@ const packages = [
 
 export default function ServicePackages() {
   return (
-    <section className="w-full max-w-7xl mx-auto bg-black px-6 sm:px-16 lg:px-8 py-12">
+    <section className="w-full  mx-auto bg-black sm:px-16 lg:px-30 py-12">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
         Service Packages
       </h1>
-      <p className="text-lg text-gray-300 mt-4 max-w-3xl">
+      <p className="text-lg text-gray-300 mt-4 max-w-3xl italic">
         We believe that regular maintenance is the key to a smooth, powerful,
         and long-lasting vehicle. Our service packages are tailored to meet
         essential upkeep needs while adding value and convenience.
