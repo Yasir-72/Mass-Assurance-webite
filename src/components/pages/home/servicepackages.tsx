@@ -48,7 +48,7 @@ const packages = [
 
 export default function ServicePackages() {
   return (
-    <section className="w-full  mx-auto bg-black sm:px-16 lg:px-30 py-12">
+    <section className="w-full max-w-screen-2xl mx-auto bg-black sm:px-16 lg:px-30 py-12">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
         Service Packages
       </h1>

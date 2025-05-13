@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Header() {
   return (
     <header className="bg-black w-full fixed top-0 z-50  ">
-      <div className="flex justify-between items-center h-16 py-12 lg:py-14 px-6 lg:px16">
+      <div className="flex justify-between items-center h-16 py-12 lg:py-14 px-6  max-w-screen-2xl mx-auto">
         {/* Logo on the left */}
         <div className="flex-shrink-0">
           <Link href="/">

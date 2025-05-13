@@ -57,10 +57,9 @@ export default function Testimonials() {
     const c2 = scrollRef2.current;
     if (!c1 || !c2) return;
 
-    const scrollSpeed =2;
+    const scrollSpeed = 1;
     const totalWidth = c1.scrollWidth / 2;
 
-    // Initialize second row offset to halfway through original content
     c2.scrollLeft = totalWidth / 10;
 
     const step = () => {
@@ -95,7 +94,7 @@ export default function Testimonials() {
       className="overflow-x-auto no-scrollbar"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
-      <div className="flex space-x-6 px-6 whitespace-nowrap">
+      <div className="flex space-x-6 px-6 whitespace-nowrap ">
         {loopedCards.map((card, idx) => (
           <div
             key={`${card.id}-${idx}`}
@@ -128,7 +127,7 @@ export default function Testimonials() {
 
   return (
     <>
-      <section className="bg-black py-16 space-y-10">
+      <section className="bg-black py-16 space-y-10 max-w-screen-2xl mx-auto">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-16 sm:px-16 lg:px-30">
           Testimonials
         </h1>

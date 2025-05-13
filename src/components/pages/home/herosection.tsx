@@ -4,10 +4,10 @@ import Image from "next/image";
 export default function Herosection() {
   return (
     <section className="relative  bg-black overflow-hidden mt-28 w-full sm:px-16 lg:px-30">
-      <div className="relative z-20">
+      <div className=" max-w-screen-xl mx-auto  relative z-20">
         <div className="max-w-4xl text-white">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            Mass Assurance  
+            Mass Assurance
           </h1>
 
           {/* 1st paragraph with stripes */}
