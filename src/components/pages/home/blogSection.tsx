@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function BlogSection() {
   return (
-    <section className="w-full max-w-screen-2xl mx-auto bg-black sm:px-16 lg:px-30 py-12">
+    <section className="w-full max-w-screen-2xl mx-auto bg-black px-4 sm:px-6 lg:px-16 py-12">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-12">
         Blogs
       </h1>
@@ -20,8 +20,8 @@ export default function BlogSection() {
           />
         </div>
         {/* Text half */}
-        <div className="w-full md:w-1/2 p-4">
-          <p className="italic text-white leading-relaxed md:text-left text-center">
+        <div className="w-full md:w-1/2 ">
+          <p className="italic text-white leading-relaxed text-left ">
             A more economical solution that still provides robust protection for
             critical systems like brakes, electricals, AC, fuel systems, and
             steering components. It’s perfect for those who want dependable
@@ -48,8 +48,8 @@ export default function BlogSection() {
           />
         </div>
         {/* Text half */}
-        <div className="w-full md:w-1/2 p-4">
-          <p className="italic text-white leading-relaxed md:text-left text-center">
+        <div className="w-full md:w-1/2 ">
+          <p className="italic text-white leading-relaxed text-left ">
             A more economical solution that still provides robust protection for
             critical systems like brakes, electricals, AC, fuel systems, and
             steering components. It’s perfect for those who want dependable

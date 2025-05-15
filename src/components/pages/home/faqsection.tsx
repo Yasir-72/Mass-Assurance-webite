@@ -37,18 +37,18 @@ export default function FaqSection() {
   );
 
   return (
-    <section className="bg-black sm:px-16 lg:px-30 max-w-screen-2xl mx-auto">
+    <section className="bg-black px-4 sm:px-6 lg:px-16 max-w-screen-2xl mx-auto">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white my-20">
         FAQ'S
       </h1>
-      <div className="w-full border border-white p-20 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="w-full border border-white p-3 md-p-20 grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Column */}
         <div className="space-y-6">
           <h1 className="text-4xl md:text-5xl font-bold text-white">
             Any Questions<br />
             We Got You
           </h1>
-          <p className="text-gray-300">
+          <p className="text-gray-300 ">
             A more economical solution that still provides robust protection for
             critical systems like brakes, electricals, AC, fuel systems, and
             steering components. It’s perfect for those who want dependable
