@@ -1,93 +1,75 @@
 "use client";
-import React, { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import React, { useEffect, useState } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+// AutoStepper: self-advancing horizontal stepper with progress bar
+interface AutoStepperProps {
+  steps: string[];
+  interval?: number; // ms between steps
+}
 
-const ProcessSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const circleRefs = useRef<HTMLDivElement[]>([]);
-  const labelRefs = useRef<HTMLDivElement[]>([]);
+const AutoStepper: React.FC<AutoStepperProps> = ({
+  steps,
+  interval = 1500,
+}) => {
+  const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
-    if (!containerRef.current || !lineRef.current) return;
+    if (currentStep < steps.length - 1) {
+      const timer = setTimeout(
+        () => setCurrentStep((prev) => prev + 1),
+        interval
+      );
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep, steps.length, interval]);
 
-    // reset refs
-    circleRefs.current = [];
-    labelRefs.current = [];
-
-    // Animate line on scroll into view
-    ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top 80%",
-      onEnter: () => {
-        gsap.to(lineRef.current, {
-          scaleX: 1,
-          transformOrigin: "left center",
-          duration: 1.2,
-          ease: "power1.inOut",
-        });
-        // animate steps sequentially after line
-        circleRefs.current.forEach((circle, i) => {
-          const delay = 1.3 + i * 0.3;
-          gsap.to(circle, {
-            backgroundColor: "#fff",
-            duration: 0.3,
-            delay,
-            ease: "power1.out",
-          });
-          gsap.to(labelRefs.current[i], {
-            color: "#fff",
-            duration: 0.3,
-            delay,
-            ease: "power1.out",
-          });
-        });
-      },
-    });
-  }, []);
+  const progressPercent = (currentStep / (steps.length - 1)) * 100;
 
   return (
-    <section ref={containerRef} className="py-16 bg-black">
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-16 px-4 sm:px-6 lg:px-16">
-        Process
-      </h1>
-      <div className="relative w-full overflow-hidden py-16">
-        {/* base line */}
-        <div className="absolute top-1/2 left-0 w-full h-1 bg-white transform -translate-y-1/2">
-          <div
-            ref={lineRef}
-            className="h-full bg-yellow-600 origin-left"
-            style={{ transform: "scaleX(0)" }}
-          />
-        </div>
-
-        {/* steps */}
-        <div className="relative flex justify-between items-center px-4 sm:px-6 lg:px-16">
-          {["CHOOSE", "COMPARE", "BUY", "CLAIM"].map((text, idx) => (
-            <div key={text} className="flex flex-col items-center">
+    <div className="w-full px-4">
+      <div className="relative h-1 bg-gray-200 rounded-full">
+        <div
+          className="absolute top-0 left-0 h-1 bg-yellow-500 rounded-full transition-all duration-500 z-0"
+          style={{ width: `${progressPercent}%` }}
+        />
+        {steps.map((label, idx) => {
+          const left = (idx / (steps.length - 1)) * 100;
+          const isActive = idx <= currentStep;
+          return (
+            <div
+              key={idx}
+              className="absolute top-3 flex flex-col items-center z-10"
+              style={{ left: `${left}%`, transform: "translate(-50%, -50%)" }}
+            >
               <div
-                ref={(el) => {
-                  if (el) circleRefs.current[idx] = el;
-                }}
-                className="w-6 h-6 rounded-full bg-gray-500 mb-2"
+                className={`w-6 h-6 md:w-10 md:h-10 rounded-full border-2 transition-colors duration-300 
+                  ${
+                    isActive
+                      ? "bg-yellow-500 border-yellow-400"
+                      : "bg-white border-gray-400"
+                  }`}
               />
-              <div
-                ref={(el) => {
-                  if (el) labelRefs.current[idx] = el;
-                }}
-                className="text-gray-500 font-bold"
+              <span
+                className={`mt-2 text-xs font-semibold uppercase 
+                ${isActive ? "text-yellow-500" : "text-gray-500"}`}
               >
-                {text}
-              </div>
+                {label}
+              </span>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default ProcessSection;
+// ProcessSection: uses AutoStepper with defined steps
+export default function ProcessSection() {
+  const steps = ["Choose", "Compare", "Buy", "Claim"];
+  return (
+    <section className="w-full max-w-screen-2xl mx-auto py-8 px-4 sm:px-6 lg:px-16">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white my-20">Process</h1>
+      <AutoStepper steps={steps} interval={1500} />
+    </section>
+  );
+}

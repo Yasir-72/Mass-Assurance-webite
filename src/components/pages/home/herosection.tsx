@@ -32,12 +32,12 @@ export default function Herosection() {
       </div>
 
       {/* Background image & buttons */}
-      <div className="relative w-full h-[240px] sm:h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden">
+      <div className="relative w-full max-w-screen-2xl mx-auto h-[240px] sm:h-[300px] md:h-[400px] lg:h-[500px] sm:px-6 lg:px-16 overflow-hidden">
         <Image
           src="/images/Lamborgini_bacground.jpg"
           alt="Lamborghini"
           fill
-          className="object-cover object-center opacity-60"
+          className="object-cover object-center opacity-60 "
           priority
         />
 
