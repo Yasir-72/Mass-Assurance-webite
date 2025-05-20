@@ -50,7 +50,7 @@ const AutoStepper: React.FC<AutoStepperProps> = ({
                   }`}
               />
               <span
-                className={`mt-2 text-xs font-semibold uppercase 
+                className={`mt-2 text-sm lg:text-lg font-semibold uppercase 
                 ${isActive ? "text-yellow-500" : "text-gray-500"}`}
               >
                 {label}
@@ -67,9 +67,9 @@ const AutoStepper: React.FC<AutoStepperProps> = ({
 export default function ProcessSection() {
   const steps = ["Choose", "Compare", "Buy", "Claim"];
   return (
-    <section className="w-full max-w-screen-2xl mx-auto py-8 px-4 sm:px-6 lg:px-16">
+    <section className="w-full max-w-screen-2xl mx-auto mb-20 px-4 sm:px-6 lg:px-16">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white my-20">Process</h1>
-      <AutoStepper steps={steps} interval={1500} />
+      <AutoStepper steps={steps} interval={2500} />
     </section>
   );
 }

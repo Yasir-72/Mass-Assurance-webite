@@ -91,7 +91,7 @@ export default function Testimonials() {
   const renderRow = (ref: React.RefObject<HTMLDivElement | null>) => (
     <div
       ref={ref}
-      className="overflow-x-auto no-scrollbar px-4 sm:px-6 lg:px-16"
+      className="overflow-x-auto h-[290px] no-scrollbar px-4 sm:px-6 lg:px-16"
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
     >
       <div className="flex space-x-4 sm:space-x-6 whitespace-nowrap">
@@ -134,8 +134,6 @@ export default function Testimonials() {
         {renderRow(scrollRef1)}
         {renderRow(scrollRef2)}
       </section>
-
-      
     </>
   );
 }

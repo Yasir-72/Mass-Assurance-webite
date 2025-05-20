@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Herosection() {
   return (
-    <section className="relative bg-black overflow-hidden mt-28 w-full  ">
+    <section className="relative bg-black overflow-hidden mt-20 w-full  ">
       {/* Inner padding wrapper */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-16 relative z-20">
         <div className="max-w-4xl text-white">

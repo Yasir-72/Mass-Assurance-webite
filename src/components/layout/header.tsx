@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="bg-black w-full fixed top-0 z-50">
-      <div className="max-w-screen-2xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-16 h-16 relative">
+      <div className="max-w-screen-2xl mx-auto  flex items-center justify-between  h-24  relative ">
         {/* Logo */}
         <Link href="/">
           <Image
@@ -25,7 +25,7 @@ export default function Header() {
             alt="Company Logo"
             width={125}
             height={125}
-            className="h-16 w-auto"
+            className="h-24 w-auto"
           />
         </Link>
 

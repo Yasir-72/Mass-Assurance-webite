@@ -1,7 +1,43 @@
-"use client";
+'use client'
 import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+
+// Define form data types
+interface ContactFormInputs {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
 
 export default function ContactSection() {
+  // Initialize the form with typed inputs
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isSubmitSuccessful },
+    reset,
+  } = useForm<ContactFormInputs>({
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
+
+  // Submit handler with typed parameter
+  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
+    try {
+      // Replace this with your API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Form submitted:", data);
+      reset();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section className="max-w-screen-2xl mx-auto bg-black flex flex-col justify-center px-4 sm:px-6 lg:px-16 py-20">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white my-16">
@@ -25,9 +61,9 @@ export default function ContactSection() {
         <div className="space-y-6 text-white">
           <h2 className="text-4xl font-bold">Let's talk over coffee!</h2>
           <p className="text-gray-300">
-            We'd love to hear from you. Whether it’s questions about courses,
-            pricing, partnerships, or anything else, our team is ready to answer
-            all your questions.
+            We'd love to hear from you. Whether it's questions about
+            courses, pricing, partnerships, or anything else, our team is ready
+            to answer all your questions.
           </p>
 
           <ul className="space-y-4">
@@ -36,7 +72,8 @@ export default function ContactSection() {
               <div>
                 <h3 className="font-semibold">Address</h3>
                 <p className="text-gray-400">
-                  I-ZAB Academy, Mumbai, Maharashtra, India
+                  Navjeevan Society, Building no-3, 11th floor, Office no. 17,
+                  Lamington Road, Grant Road, Mumbai-400008
                 </p>
               </div>
             </li>
@@ -44,39 +81,94 @@ export default function ContactSection() {
               <span className="mr-3 text-yellow-500">☎️</span>
               <div>
                 <h3 className="font-semibold">Phone</h3>
-                <p className="text-gray-400">+91 12345 67890</p>
+                <p className="text-gray-400">+91 7039512345</p>
               </div>
             </li>
             <li className="flex items-start">
               <span className="mr-3 text-yellow-500">✉️</span>
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="text-gray-400">contact@izabacademy.com</p>
+                <p className="text-gray-400">info@masassurance.com</p>
               </div>
             </li>
           </ul>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            />
-            <textarea
-              placeholder="Your Message"
-              rows={4}
-              className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            />
+          <form
+            className="space-y-4"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
+            {/* Name Field */}
+            <div>
+              <input
+                type="text"
+                placeholder="Your Name"
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.name ? 'border-red-500' : 'border-gray-700'}`}
+                {...register('name', { required: 'Name is required' })}
+              />
+              {errors.name && (
+                <p className="mt-1 text-red-500 text-sm">{errors.name.message}</p>
+              )}
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <input
+                type="email"
+                placeholder="Your Email"
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.email ? 'border-red-500' : 'border-gray-700'}`}
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+                    message: 'Enter a valid email address',
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>
+              )}
+            </div>
+
+            {/* Phone Field */}
+            <div>
+              <input
+                type="tel"
+                placeholder="Your Phone Number"
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.phone ? 'border-red-500' : 'border-gray-700'}`}
+                {...register('phone', {
+                  required: 'Phone number is required',
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: 'Enter a valid 10-digit phone number',
+                  },
+                })}
+              />
+              {errors.phone && (
+                <p className="mt-1 text-red-500 text-sm">{errors.phone.message}</p>
+              )}
+            </div>
+
+            {/* Message Field */}
+            <div>
+              <textarea
+                placeholder="Your Message"
+                rows={4}
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.message ? 'border-red-500' : 'border-gray-700'}`}
+                {...register('message', { required: 'Message is required' })}
+              />
+              {errors.message && (
+                <p className="mt-1 text-red-500 text-sm">{errors.message.message}</p>
+              )}
+            </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-colors duration-300"
+              disabled={isSubmitting}
+              className="w-full px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-colors duration-300 disabled:opacity-50"
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : isSubmitSuccessful ? 'Sent!' : 'Send Message'}
             </button>
           </form>
         </div>
