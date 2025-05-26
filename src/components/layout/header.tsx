@@ -10,9 +10,8 @@ export default function Header() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us" },
     { href: "/insurance", label: "Insurance" },
-    { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact Us" },
-    { href: "/partners", label: "Partner" },
+    // { href: "/partners", label: "Partner" },
   ];
 
   return (

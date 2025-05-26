@@ -2,10 +2,10 @@ import React from "react";
 import Herosection from "./home/herosection";
 import ServicePackages from "./home/servicepackages";
 import Testimonials from "./home/testimonials";
-import BlogSection from "./home/blogSection";
 import FaqSection from "./home/faqsection";
 import ContactSection from "./home/contactsection";
 import ProcessSection from "./home/processsection";
+import WhatsAppButton from "../layout/whatsappbutton";
 
 export default function HomePageContent() {
   return (
@@ -14,9 +14,9 @@ export default function HomePageContent() {
       <ServicePackages />
       <Testimonials />
       <ProcessSection/>
-      <BlogSection />
       <FaqSection />
       <ContactSection />
+      <WhatsAppButton/>
     </main>
   );
 }

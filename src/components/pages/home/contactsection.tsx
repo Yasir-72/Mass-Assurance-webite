@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -29,12 +29,25 @@ export default function ContactSection() {
   // Submit handler with typed parameter
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     try {
-      // Replace this with your API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form submitted:", data);
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/senddata`;
+      console.log("POSTing to:", url, "payload:", data);
+
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Error ${res.status}: ${text}`);
+      }
+
+      const json = await res.json();
+      console.log("Server response:", json);
       reset();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error("Form submission error:", err);
     }
   };
 
@@ -61,9 +74,9 @@ export default function ContactSection() {
         <div className="space-y-6 text-white">
           <h2 className="text-4xl font-bold">Let's talk over coffee!</h2>
           <p className="text-gray-300">
-            We'd love to hear from you. Whether it's questions about
-            courses, pricing, partnerships, or anything else, our team is ready
-            to answer all your questions.
+            We'd love to hear from you. Whether it's questions about courses,
+            pricing, partnerships, or anything else, our team is ready to answer
+            all your questions.
           </p>
 
           <ul className="space-y-4">
@@ -103,11 +116,15 @@ export default function ContactSection() {
               <input
                 type="text"
                 placeholder="Your Name"
-                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.name ? 'border-red-500' : 'border-gray-700'}`}
-                {...register('name', { required: 'Name is required' })}
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${
+                  errors.name ? "border-red-500" : "border-gray-700"
+                }`}
+                {...register("name", { required: "Name is required" })}
               />
               {errors.name && (
-                <p className="mt-1 text-red-500 text-sm">{errors.name.message}</p>
+                <p className="mt-1 text-red-500 text-sm">
+                  {errors.name.message}
+                </p>
               )}
             </div>
 
@@ -116,17 +133,21 @@ export default function ContactSection() {
               <input
                 type="email"
                 placeholder="Your Email"
-                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.email ? 'border-red-500' : 'border-gray-700'}`}
-                {...register('email', {
-                  required: 'Email is required',
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${
+                  errors.email ? "border-red-500" : "border-gray-700"
+                }`}
+                {...register("email", {
+                  required: "Email is required",
                   pattern: {
                     value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
-                    message: 'Enter a valid email address',
+                    message: "Enter a valid email address",
                   },
                 })}
               />
               {errors.email && (
-                <p className="mt-1 text-red-500 text-sm">{errors.email.message}</p>
+                <p className="mt-1 text-red-500 text-sm">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -135,17 +156,21 @@ export default function ContactSection() {
               <input
                 type="tel"
                 placeholder="Your Phone Number"
-                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.phone ? 'border-red-500' : 'border-gray-700'}`}
-                {...register('phone', {
-                  required: 'Phone number is required',
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${
+                  errors.phone ? "border-red-500" : "border-gray-700"
+                }`}
+                {...register("phone", {
+                  required: "Phone number is required",
                   pattern: {
                     value: /^[0-9]{10}$/,
-                    message: 'Enter a valid 10-digit phone number',
+                    message: "Enter a valid 10-digit phone number",
                   },
                 })}
               />
               {errors.phone && (
-                <p className="mt-1 text-red-500 text-sm">{errors.phone.message}</p>
+                <p className="mt-1 text-red-500 text-sm">
+                  {errors.phone.message}
+                </p>
               )}
             </div>
 
@@ -154,11 +179,15 @@ export default function ContactSection() {
               <textarea
                 placeholder="Your Message"
                 rows={4}
-                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${errors.message ? 'border-red-500' : 'border-gray-700'}`}
-                {...register('message', { required: 'Message is required' })}
+                className={`w-full p-3 bg-gray-800 text-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 ${
+                  errors.message ? "border-red-500" : "border-gray-700"
+                }`}
+                {...register("message", { required: "Message is required" })}
               />
               {errors.message && (
-                <p className="mt-1 text-red-500 text-sm">{errors.message.message}</p>
+                <p className="mt-1 text-red-500 text-sm">
+                  {errors.message.message}
+                </p>
               )}
             </div>
 
@@ -168,7 +197,11 @@ export default function ContactSection() {
               disabled={isSubmitting}
               className="w-full px-6 py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-colors duration-300 disabled:opacity-50"
             >
-              {isSubmitting ? 'Sending...' : isSubmitSuccessful ? 'Sent!' : 'Send Message'}
+              {isSubmitting
+                ? "Sending..."
+                : isSubmitSuccessful
+                ? "Sent!"
+                : "Send Message"}
             </button>
           </form>
         </div>
