@@ -1,4 +1,5 @@
 import React from "react";
+import GetQuote from "./getquote";
 
 export default function Footer() {
   return (
@@ -12,7 +13,7 @@ export default function Footer() {
                 <span className="text-black font-bold text-xl">M</span>
               </div>
               <span className="text-2xl font-extrabold text-white">
-                Mas Assurance
+                Mas <span className="text-yellow-500">Assurance</span>
               </span>
             </div>
 
@@ -21,27 +22,12 @@ export default function Footer() {
               ready to help you get the perfect insurance quote.
             </p>
 
-            <button className="w-72 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 group">
-              <span>Get a Free Quote</span>
-              <svg
-                className="w-5 h-5 transition-transform transform group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </button>
+            <GetQuote/>
           </div>
 
           {/* Quick Links */}
           <div className="w-full md:w-1/3 flex flex-col items-center">
-            <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
+            <h3 className="text-xl font-bold text-white mb-4">Quick <span className="text-yellow-500">Links</span></h3>
             <ul className="space-y-2 text-center">
               {["Home", "About Us", "Services", "Portfolio", "Contact"].map(
                 (label, idx) => (
@@ -60,7 +46,7 @@ export default function Footer() {
 
           {/* Contact & Social */}
           <div className="w-full md:w-1/3 items-center md:items-end flex flex-col">
-            <h3 className="text-xl font-bold text-white mb-4">Contact Us</h3>
+            <h3 className="text-xl font-bold text-white mb-4">Contact <span className="text-yellow-500">Us</span></h3>
             <p className="text-gray-400">123 Web Ave, Mumbai, India</p>
             <p className="text-gray-400 mt-1">+91 98765 43210</p>
             <p className="text-gray-400 mt-1">hello@webify.com</p>

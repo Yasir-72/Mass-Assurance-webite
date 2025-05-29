@@ -6,6 +6,58 @@ import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function AboutPageContent() {
+  const purpose =
+    "Transforming the post-purchase experience of luxury vehicle ownership in India. Eliminating uncertainties around repairs and maintenance so you drive with confidence and zero worry.";
+  const mission =
+    "To ensure every luxury vehicle owner experiences worry-free driving by providing reliable, affordable, and comprehensive protection—backed by expert service and a human touch.";
+  const vision =
+    "Become the most trusted name in vehicle risk assurance by delivering superior value, transparent service, and complete peace of mind.";
+
+  const values = [
+    {
+      icon: "/icons/integrity.svg",
+      title: "Integrity",
+      desc: "Honesty, transparency, and accountability are at the core of everything we do.",
+    },
+    {
+      icon: "/icons/customer-first.svg",
+      title: "Customer First",
+      desc: "We build long-term relationships by listening, personalizing, and exceeding expectations.",
+    },
+    {
+      icon: "/icons/innovation.svg",
+      title: "Innovation",
+      desc: "Smart tools and predictive analytics simplify protection and maximize convenience.",
+    },
+    {
+      icon: "/icons/quality.svg",
+      title: "Quality Assurance",
+      desc: "Certified centers, trained technicians, and genuine OEM parts guarantee world-class care.",
+    },
+  ];
+
+  const highlights = [
+    {
+      icon: "/icons/luxury.svg",
+      title: "Tailored for Luxury Vehicles",
+      desc: "Component-level plans designed for premium brands—German engineering, Italian performance, and more.",
+    },
+    {
+      icon: "/icons/ecosystem.svg",
+      title: "End-to-End Service Ecosystem",
+      desc: "Extended warranties, service packages, and 24/7 assistance in one seamless platform.",
+    },
+    {
+      icon: "/icons/tech.svg",
+      title: "Technology-Driven",
+      desc: "Digital claims, proactive reminders, and a smart, simplified ownership experience.",
+    },
+    {
+      icon: "/icons/partners.svg",
+      title: "Authorized Partners",
+      desc: "Repairs at OEM dealerships or MAS-approved facilities with genuine parts.",
+    },
+  ];
   // Features for "Why Choose Us"
   const features = [
     {
@@ -33,27 +85,8 @@ export default function AboutPageContent() {
     { name: "David Kim", role: "CFO", img: "/images/dummy2.png" },
   ];
 
-  // Tech Support Offerings
-  const techServices = [
-    {
-      icon: "/icons/portal.svg",
-      title: "Online Policy Portal",
-      desc: "Manage policies, view documents, and track claims instantly through our secure web portal.",
-    },
-    {
-      icon: "/icons/mobile-app.svg",
-      title: "Mobile App Access",
-      desc: "Renew coverage, file claims, and get real-time support—all from your smartphone.",
-    },
-    {
-      icon: "/icons/chat-support.svg",
-      title: "24/7 Chat Support",
-      desc: "Instant assistance for policy inquiries or roadside help any time, day or night.",
-    },
-  ];
-
   return (
-    <main className="flex flex-col w-full space-y-20">
+    <main className="flex flex-col w-full space-y-20 ">
       {/* Hero Banner */}
       <section className="relative w-full h-[500px] overflow-hidden">
         <Image
@@ -87,55 +120,115 @@ export default function AboutPageContent() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="max-w-6xl mx-auto px-6 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl">
+      {/* Purpose & Mission */}
+      <section className="text-center space-y-6 px-4 sm:px-6 lg:px-16">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-extrabold text-white text-center mb-12"
+          className="text-4xl md:text-5xl font-bold text-white"
         >
-          Why Choose Us
+          Our Purpose & <span className="text-yellow-500">Mission</span>
         </motion.h2>
-        {/* <motion.p
-          className="text-lg text-gray-300 text-center mb-12 max-w-2xl mx-auto"
+        <motion.p
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          whileInView={{ opacity: 1 }}
+          className="max-w-3xl mx-auto text-md md:text-lg text-gray-300"
         >
-          TrinuMics Solutions & Insurance Support
-        </motion.p> */}
+          {purpose}
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="max-w-3xl mx-auto text-md md:text-lg text-gray-300"
+        >
+          {mission}
+        </motion.p>
+      </section>
 
-        <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0 justify-center">
-          {features.map((feat, i) => (
+      {/* Vision & Values */}
+      <section className="space-y-12 px-4 sm:px-6 lg:px-16">
+        <div className="text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold text-white"
+          >
+            Our Vision & <span className="text-yellow-500">Values</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="mt-4 max-w-2xl mx-auto text-md md:text-lg text-gray-300"
+          >
+            {vision}
+          </motion.p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {values.map((v, i) => (
             <motion.div
               key={i}
-              className="relative group w-full md:w-1/3 p-8 bg-gray-900 rounded-2xl overflow-hidden hover:cursor-pointer"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2 }}
+              className="bg-zinc-900 p-6 rounded-2xl shadow-lg hover:shadow-white/70 transition-shadow duration-500 text-center"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity" />
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <Image
-                  src={feat.icon}
-                  alt={feat.title}
-                  width={64}
-                  height={64}
-                  className="mb-4 object-contain"
-                />
-                <h3 className="text-2xl font-semibold text-white mb-2">
-                  {feat.title}
-                </h3>
-                <p className="text-gray-300 text-sm mb-4">{feat.desc}</p>
-              </div>
+              <Image
+                src={v.icon}
+                alt={v.title}
+                width={64}
+                height={64}
+                className="mx-auto mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                {v.title}
+              </h3>
+              <p className="text-gray-300 text-sm">{v.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
+
+      {/* What Sets Us Apart */}
+      <section className="space-y-12 px-4 sm:px-6 lg:px-16">
+        <div className="px-3 md:px-12 py-12 md:p-12 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl ">
+          <motion.h2
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold text-center text-white mb-8"
+          >
+            Why MAS <span className="text-yellow-500">Assurance</span>
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {highlights.map((h, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.2 }}
+                className="relative group flex flex-col items-center text-center p-6 bg-gray-900 rounded-2xl overflow-hidden hover:cursor-pointer"
+              >
+                  {/* subtle gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity" />
+                <Image
+                  src={h.icon}
+                  alt={h.title}
+                  width={48}
+                  height={48}
+                  className="mb-4"
+                />
+                <h4 className="font-semibold text-lg mb-2 text-white">
+                  {h.title}
+                </h4>
+                <p className="text-white text-sm">{h.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* Leadership Team */}
       <section className="max-w-6xl mx-auto px-6 text-center space-y-12">
-        <h2 className="text-4xl font-bold text-white">Leadership Team</h2>
+        <h2 className="text-4xl font-bold text-white">Leadership <span className="text-yellow-500">Team</span></h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
           {team.map((member, i) => (
             <motion.div
@@ -162,14 +255,14 @@ export default function AboutPageContent() {
       </section>
 
       {/* Tech Support */}
-      <section className="max-w-6xl mx-auto px-6 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl">
+      <section className="max-w-6xl mx-auto px-3 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl ">
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold text-white text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Tech Support Services
+          Tech Support <span className="text-yellow-500">Services</span>
         </motion.h1>
         <motion.p
           className="text-lg text-gray-300 text-center mb-12 max-w-2xl mx-auto"
@@ -220,7 +313,7 @@ export default function AboutPageContent() {
       {/* Testimonials */}
       <section className="max-w-6xl mx-auto px-6 space-y-10">
         <h2 className="text-4xl font-bold text-center text-white">
-          Customer Testimonials
+          Customer <span className="text-yellow-500">Testimonials</span>
         </h2>
         <div className="space-y-8">
           {[

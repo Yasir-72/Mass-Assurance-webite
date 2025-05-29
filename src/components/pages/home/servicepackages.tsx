@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const packages = [
   {
@@ -38,14 +39,14 @@ const packages = [
 export default function ServicePackages() {
   return (
     <section className="bg-black py-16">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 ">
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold text-white text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-         Our Service Packages
+          Our Service <span className="text-yellow-500">Packages</span>
         </motion.h1>
         <motion.p
           className="text-lg text-gray-300 text-center mb-12 max-w-2xl mx-auto"
@@ -81,19 +82,22 @@ export default function ServicePackages() {
                   {pkg.title}
                 </h2>
                 <p className="text-gray-400 flex-1 mb-6">{pkg.description}</p>
-                <button className="mt-auto inline-block bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full transition-colors duration-300">
-                  Learn More
-                </button>
               </div>
             </motion.div>
           ))}
+        </div>
+        <div className="flex justify-center mt-5">
+          <Link
+            href="/quote"
+            className="mt-6 inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition "
+          >
+            Explore the full package
+          </Link>
         </div>
       </div>
     </section>
   );
 }
-
-
 
 // "use client";
 

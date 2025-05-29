@@ -82,7 +82,7 @@ export default function ProcessSection() {
   const steps = ["Choose", "Compare", "Buy", "Claim"];
 
   return (
-    <section className="w-full max-w-screen-2xl mx-auto mb-20 px-4 sm:px-6 lg:px-16">
+    <section className="w-full max-w-screen-2xl mx-auto mb-20 px-4 sm:px-6 lg:px-16 pb-20">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-12">
         Process
       </h1>

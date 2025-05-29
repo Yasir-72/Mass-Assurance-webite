@@ -52,9 +52,9 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="max-w-screen-2xl mx-auto bg-black flex flex-col justify-center px-4 sm:px-6 lg:px-16 py-20">
+    <section className="max-w-screen-2xl mx-auto bg-black flex flex-col justify-center px-4 sm:px-6 lg:px-16 pb-20">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white my-16">
-        Get in Touch
+        Get in <span className="text-yellow-500">Touch</span>
       </h1>
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* Left: Map Embed */}

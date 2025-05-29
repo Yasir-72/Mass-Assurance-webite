@@ -66,7 +66,7 @@ export default function FaqSection() {
           <h1 className="text-4xl md:text-5xl font-bold text-white">
             Any Questions
             <br />
-            We Got You
+            <span className="text-yellow-500">We Got You</span>
           </h1>
 
           <AnimatePresence mode="wait">

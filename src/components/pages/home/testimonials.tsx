@@ -55,7 +55,7 @@ export default function Testimonials() {
     const container = scrollRef.current;
     if (!container) return;
 
-    const scrollSpeed = 1;
+    const scrollSpeed = 0.5;
     const totalWidth = container.scrollWidth / 2;
 
     const step = () => {
