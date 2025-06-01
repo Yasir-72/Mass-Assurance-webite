@@ -32,13 +32,13 @@ export default function ContactPageContent() {
       if (!res.ok) throw new Error();
       reset();
     } catch {
-      // handle errors
+      console.error("Error sending data");
     }
   };
 
   return (
     <section className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-24">
-      <div className="relative z-10 max-w-screen-lg mx-auto px-3">
+      <div className="relative  max-w-screen-lg mx-auto px-3">
         {/* Header & CTA */}
         <div className="flex flex-col items-center text-center pb-16 ">
           <h1 className="text-5xl font-extrabold leading-tight">

@@ -12,48 +12,78 @@ type FAQItem = {
 
 const FAQ_ITEMS: FAQItem[] = [
   {
-    question: "Why do I need special insurance for a luxury car?",
+    question: "Is coverage valid if I go to a non-authorized service center?",
     answer:
-      "Luxury vehicles come with higher repair costs, advanced tech, and greater theft risk. Standard policies may fall short—specialized insurance ensures full protection and peace of mind.",
+      "Only in true emergencies—repairs at non-authorized shops are covered up to a capped amount; any costs beyond that cap are out of pocket.",
     image: "/images/faq-0.jpg",
-    defaultOpen: true,
+    defaultOpen: false,
   },
   {
-    question: "How is the value of my luxury car determined in a claim?",
+    question: "Which authorized service stations can I use?",
     answer:
-      "We offer 'agreed value' coverage—meaning you and the insurer agree on your vehicle's worth upfront, so there are no surprises if a total loss occurs.",
+      "Any shop listed on our “Authorized Repair Centers” page—these are certified luxury-car dealers or independent garages approved by your manufacturer.",
     image: "/images/faq-1.jpg",
+    defaultOpen: false,
   },
   {
-    question: "Can I choose who repairs my luxury vehicle?",
+    question: "What does my luxury-car policy cover?",
     answer:
-      "Yes, with our luxury insurance policies, you can choose your preferred repair shop or access our approved network of certified luxury auto specialists using OEM parts.",
+      "Collision/comprehensive damage, agreed-value payout, OEM-parts repairs, theft/vandalism, exotic rental reimbursement, roadside assistance, and optional international coverage.",
     image: "/images/faq-2.jpg",
+    defaultOpen: false,
   },
   {
-    question: "Does this cover rental vehicles while mine is being repaired?",
+    question: "What is the duration of the policy and renewal process?",
     answer:
-      "Absolutely. We include luxury rental reimbursement, so you’ll never have to downgrade while your vehicle is being repaired after a covered incident.",
+      "Policies run 12 months; you’ll receive a renewal notice 30 days before expiration, with a 15-day grace period for reinstatement if you miss the due date.",
     image: "/images/faq-3.jpg",
+    defaultOpen: false,
   },
   {
-    question: "Will my policy cover international travel with my car?",
+    question: "How does the claim process work?",
     answer:
-      "Yes, we offer optional international coverage so your luxury vehicle is protected even when you travel abroad—perfect for road trips or cross-border use.",
+      "Report the incident via our 24/7 hotline or online, we assign a luxury-car adjuster, inspect at an authorized center, approve OEM-based repairs (usually within 24 hours), and pay the shop directly—plus arrange a premium rental if you’ve opted in.",
     image: "/images/faq-4.jpg",
+    defaultOpen: false,
   },
   {
-    question: "Do you offer discounts for good driving or multiple cars?",
+    question:
+      "Can I customize my coverage if I have aftermarket modifications?",
     answer:
-      "Yes, we offer exclusive discounts for safe drivers, garaged vehicles, anti-theft features, and multi-vehicle policies—especially for collectors or households with multiple luxury cars.",
+      "Yes. We offer optional coverage add-ons for aftermarket parts (e.g., custom wheels, performance tuning, audio systems). Simply provide us with receipts or valuation details, and we’ll agree on their insured value upfront to ensure full replacement cost.",
     image: "/images/faq-5.jpg",
+    defaultOpen: false,
+  },
+  {
+    question: "Do you provide concierge pick-up and delivery during repairs?",
+    answer:
+      "Absolutely. For qualifying policies, we offer complimentary concierge service: we’ll pick up your vehicle from home or work, take it to the authorized center, and return it to you once repairs are complete.",
+    image: "/images/faq-6.jpg",
+    defaultOpen: false,
   },
 ];
 
 export default function FaqSection() {
+  // Determine the initial openIndex (use first defaultOpen if any)
+  const defaultIdx = FAQ_ITEMS.findIndex((item) => item.defaultOpen === true);
   const [openIndex, setOpenIndex] = useState<number | null>(
-    FAQ_ITEMS.findIndex((i) => i.defaultOpen) ?? null
+    defaultIdx >= 0 ? defaultIdx : null
   );
+
+  // If FAQ_ITEMS is empty, don’t render anything
+  if (!Array.isArray(FAQ_ITEMS) || FAQ_ITEMS.length === 0) {
+    return null;
+  }
+
+  // Ensure openIndex is within valid bounds; fallback to 0
+  const safeIndex =
+    typeof openIndex === "number" &&
+    openIndex >= 0 &&
+    openIndex < FAQ_ITEMS.length
+      ? openIndex
+      : 0;
+
+  const currentItem = FAQ_ITEMS[safeIndex];
 
   return (
     <section className="bg-black px-4 sm:px-6 lg:px-16 max-w-screen-2xl mx-auto">
@@ -71,23 +101,24 @@ export default function FaqSection() {
 
           <AnimatePresence mode="wait">
             <motion.div
-              key={openIndex}
+              key={safeIndex}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4 }}
               className="space-y-4"
             >
-              <Image
-                src={FAQ_ITEMS[openIndex ?? 0].image}
-                alt="FAQ Visual"
-                width={600}
-                height={300}
-                className="w-full rounded-xl object-cover h-60"
-              />
-              <p className="text-gray-300">
-                {FAQ_ITEMS[openIndex ?? 0].answer}
-              </p>
+              {/* Only render Image if currentItem.image exists */}
+              {currentItem.image && (
+                <Image
+                  src={currentItem.image}
+                  alt="FAQ Visual"
+                  width={600}
+                  height={300}
+                  className="w-full rounded-xl object-cover h-60"
+                />
+              )}
+              <p className="text-gray-300">{currentItem.answer}</p>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -98,7 +129,7 @@ export default function FaqSection() {
             const isOpen = idx === openIndex;
 
             return (
-              <div key={idx} className="border-b border-yellow-500 pb-2">
+              <div key={idx} className="border-b border-yellow-400 pb-2">
                 <button
                   type="button"
                   className="w-full flex justify-between items-center text-white text-lg font-medium focus:outline-none"

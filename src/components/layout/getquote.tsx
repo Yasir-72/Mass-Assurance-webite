@@ -16,6 +16,7 @@ interface QuoteFormInputs {
 
 export default function GetQuote() {
   const [isOpen, setIsOpen] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null); // 🔥 Error state
   const {
     register,
     handleSubmit,
@@ -23,10 +24,32 @@ export default function GetQuote() {
     reset,
   } = useForm<QuoteFormInputs>();
 
-  const onSubmit: SubmitHandler<QuoteFormInputs> = (data) => {
-    console.log("Quote request:", data);
-    reset();
-    setIsOpen(false);
+  const onSubmit: SubmitHandler<QuoteFormInputs> = async (data) => {
+    setSubmissionError(null); // 🔥 Clear previous error
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/sendpdf`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          "Server responded with an error. Please try again later."
+        ); // 🔥 Custom error
+      }
+
+      console.log("Quote request:", data);
+      reset();
+    } catch (error) {
+      console.error("Error submitting form", error);
+      setSubmissionError(
+        "We’re facing a server Problem. Please retry in a few minutes."
+      ); // 🔥 User-friendly message
+    }
   };
 
   return (
@@ -67,7 +90,7 @@ export default function GetQuote() {
           >
             {/* Modal Container */}
             <motion.div
-              className="bg-gradient-to-br from-gray-900 to-black text-white rounded-3xl w-full max-w-md sm:max-w-2xl px-2 md:px-6 py-6  relative shadow-2xl max-h-[90vh] overflow-y-auto"
+              className="bg-gradient-to-br from-gray-900 to-black text-white rounded-3xl w-full max-w-md sm:max-w-2xl px-2 md:px-6 py-16 relative shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hidden"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -97,6 +120,7 @@ export default function GetQuote() {
               {/* Form */}
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Input fields ... unchanged */}
                   <div>
                     <input
                       type="text"
@@ -187,17 +211,51 @@ export default function GetQuote() {
                   </div>
                 </div>
 
+                {/* 🔥 Updated Submit Button with Spinner + State */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full py-3 sm:py-4 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-bold rounded-full hover:from-yellow-600 hover:to-yellow-800 transition disabled:opacity-50"
                 >
-                  {isSubmitting
-                    ? "Submitting..."
-                    : isSubmitSuccessful
-                    ? "Submitted!"
-                    : "Submit"}
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <svg
+                        className="animate-spin h-5 w-5 text-black"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        ></path>
+                      </svg>
+                      <span>Submitting...</span>
+                    </div>
+                  ) : isSubmitSuccessful ? (
+                    "Submitted!"
+                  ) : submissionError ? (
+                    "Retry in a few minutes"
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
+
+                {/* 🔥 Error message */}
+                {submissionError && (
+                  <p className="text-red-400 text-center mt-2 text-sm">
+                    {submissionError}
+                  </p>
+                )}
               </form>
 
               {/* Highlights Footer */}

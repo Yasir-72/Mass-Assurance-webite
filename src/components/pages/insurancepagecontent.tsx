@@ -66,7 +66,7 @@ export default function InsurancePageContent() {
       {/* What Sets Us Apart */}
       <section className="bg-white py-16">
         <motion.div
-          className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 px-6"
+          className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 px-6 "
           variants={stagger}
           initial="hidden"
           whileInView="show"
@@ -95,7 +95,7 @@ export default function InsurancePageContent() {
           ].map((item, idx) => (
             <motion.div
               key={idx}
-              className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-yellow-100 to-white rounded-2xl shadow-md"
+              className="flex flex-col items-center text-center p-6 bg-gradient-to-br from-yellow-100 to-white rounded-2xl  shadow-lg hover:shadow-yellow-500/90 transition-shadow duration-500"
               variants={fadeInUp}
             >
               {item.icon}

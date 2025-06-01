@@ -1,36 +1,38 @@
 "use client";
-
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import CompactIcon from "@/icons/compact.svg";
+import CompactPlusIcon from "@/icons/compactplus.svg";
+import ComprehensiveIcon from "@/icons/comprehensive.svg";
+import EssentialIcon from "@/icons/essential.svg";
 
 const packages = [
   {
     id: 1,
     title: "Compact Package",
-    image: "/images/service1.jpeg",
+    Icon: CompactIcon,
     description:
       "An essential maintenance plan covering all your core servicing needs including engine oil changes, AC filter checks, and fuel filter service.",
   },
   {
     id: 2,
     title: "Compact Plus Package",
-    image: "/images/service2.jpeg",
+    Icon: CompactPlusIcon,
     description:
       "Everything in the Compact Package, plus coverage for brakes, wheel alignment & balancing, and wiper blades.",
   },
   {
     id: 3,
     title: "Comprehensive Warranty",
-    image: "/images/service3.jpeg",
+    Icon: ComprehensiveIcon,
     description:
       "All-inclusive coverage for mechanical and electrical systems: engine, transmission, suspension, braking, steering, and more.",
   },
   {
     id: 4,
     title: "Essential Warranty",
-    image: "/images/smartphone.png",
+    Icon: EssentialIcon,
     description:
       "A more economical solution that still provides robust protection for critical systems like brakes, electrics, AC, fuel systems, and steering components.",
   },
@@ -69,12 +71,11 @@ export default function ServicePackages() {
               whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative h-64">
-                <Image
-                  src={pkg.image}
-                  alt={pkg.title}
-                  fill
-                  className="object-cover"
+              <div className="flex justify-center items-center h-64 bg-zinc-800">
+                <pkg.Icon
+                  className="w-40 h-40 text-yellow-500"
+                  fill="currentColor"
+                  aria-label={pkg.title}
                 />
               </div>
               <div className="p-8 flex-1 flex flex-col">
@@ -98,114 +99,3 @@ export default function ServicePackages() {
     </section>
   );
 }
-
-// "use client";
-
-// import React, { useState } from "react";
-// import Image from "next/image";
-// import { motion, AnimatePresence } from "framer-motion";
-
-// const packages = [
-//   { id: 1, title: "Compact Package",     image: "/images/service1.jpeg",  description: "An essential maintenance plan covering all your core servicing needs including engine oil changes, AC filter checks, and fuel filter service." },
-//   { id: 2, title: "Compact Plus Package", image: "/images/service2.jpeg",  description: "Everything in the Compact Package, plus coverage for brakes, wheel alignment & balancing, and wiper blades." },
-//   { id: 3, title: "Comprehensive Warranty", image: "/images/service3.jpeg",description: "All-inclusive coverage for mechanical and electrical systems: engine, transmission, suspension, braking, steering, and more." },
-//   { id: 4, title: "Essential Warranty",   image: "/images/smartphone.png", description: "A more economical solution that still provides robust protection for critical systems like brakes, electrics, AC, fuel systems, and steering components." },
-// ];
-
-// export default function ServicePackages() {
-//   const [page, setPage] = useState(0);
-//   const perPage = 2;
-//   const totalPages = Math.ceil(packages.length / perPage);
-//   const start = page * perPage;
-//   const visible = packages.slice(start, start + perPage);
-
-//   const fadeVariants = {
-//     initial: { opacity: 0 },
-//     animate: { opacity: 1 },
-//     exit:    { opacity: 0 },
-//   };
-
-//   return (
-//     <section className="bg-black w-full py-12">
-//       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-16">
-//         <motion.h1
-//           className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white"
-//           initial={{ opacity: 0, y: 20 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.8 }}
-//         >
-//           Service Packages
-//         </motion.h1>
-
-//         <motion.p
-//           className="text-lg text-gray-300 mt-4 max-w-3xl italic"
-//           initial={{ opacity: 0 }}
-//           animate={{ opacity: 1 }}
-//           transition={{ delay: 0.3, duration: 0.6 }}
-//         >
-//           Pick from our tailored maintenance & warranty plans—just two at a time.
-//         </motion.p>
-
-//         <div className="mt-10 flex justify-center space-x-4">
-//           <button
-//             onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}
-//             className="px-5 py-2 bg-zinc-700 hover:bg-zinc-600 text-gray-200 rounded-full transition focus:outline-none focus:ring-2 focus:ring-amber-500"
-//           >
-//             Prev
-//           </button>
-//           <button
-//             onClick={() => setPage(p => (p + 1) % totalPages)}
-//             className="px-5 py-2 bg-zinc-700 hover:bg-zinc-600 text-gray-200 rounded-full transition focus:outline-none focus:ring-2 focus:ring-amber-500"
-//           >
-//             Next
-//           </button>
-//         </div>
-
-//         <div className="mt-6 relative min-h-[480px]">
-//           <AnimatePresence initial={false} mode="sync">
-//             <motion.div
-//               key={page}
-//               variants={fadeVariants}
-//               initial="initial"
-//               animate="animate"
-//               exit="exit"
-//               transition={{ duration: 0.4, ease: "easeInOut" }}
-//               className="absolute inset-0 grid grid-cols-1 md:grid-cols-2 gap-8"
-//             >
-//               {visible.map(pkg => (
-//                 <motion.div
-//                   key={pkg.id}
-//                   className="bg-zinc-800 rounded-2xl overflow-hidden shadow-xl flex flex-col h-full"
-//                   whileHover={{ y: -8, scale: 1.02 }}
-//                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-//                 >
-//                   <div className="relative w-full h-56 sm:h-64">
-//                     <Image
-//                       src={pkg.image}
-//                       alt={pkg.title}
-//                       fill
-//                       className="object-cover object-center"
-//                     />
-//                   </div>
-//                   <div className="p-6 flex-1 flex flex-col">
-//                     <h2 className="relative mb-3 text-lg font-semibold text-white py-2">
-//                       <span className="absolute inset-x-0 top-0 h-1 w-32 bg-[#FFB600] [clip-path:polygon(0%_0%,_100%_50%,_0%_100%)]" />
-//                       {pkg.title}
-//                       <span className="absolute inset-x-0 bottom-0 h-1 w-32 bg-[#FFB600] [clip-path:polygon(100%_50%,_0%_0%,_0%_100%)]" />
-//                     </h2>
-//                     <p className="text-gray-300 text-sm flex-1">
-//                       {pkg.description}
-//                     </p>
-//                     <button className="mt-6 self-start bg-amber-500 hover:bg-amber-600 text-black font-semibold py-2 px-4 rounded-lg transition">
-//                       Learn More
-//                     </button>
-//                   </div>
-//                 </motion.div>
-//               ))}
-//             </motion.div>
-//           </AnimatePresence>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }

@@ -1,49 +1,49 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+import PersonIcon from "@/icons/person.svg";
 
-export const cards = [
+export const testimonials = [
   {
     id: 1,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Chetan Kothari",
+    description: `MAS Assurance gave me peace of mind with their comprehensive vehicle protection plan. The claims process was seamless and quick—highly recommend!`,
+    image: PersonIcon,
     dark: true,
   },
   {
     id: 2,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Manoj Pardasny",
+    description: `Excellent customer service and honest pricing. MAS Assurance’s coverage saved me from expensive repairs after an unexpected breakdown.`,
+    image: PersonIcon,
     dark: false,
   },
   {
     id: 3,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Ragendra Bohra",
+    description: `Their authorized service partners are top-notch. I trust MAS Assurance for all my car maintenance needs. Reliable and professional!`,
+    image: PersonIcon,
     dark: true,
   },
   {
     id: 4,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Bipin Panchal",
+    description: `The add-ons like tire protection and key replacement made my plan very valuable. MAS Assurance truly goes above and beyond.`,
+    image: PersonIcon,
     dark: false,
   },
   {
     id: 5,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Pushpak Ranka",
+    description: `Fast claims and 24/7 roadside assistance make MAS Assurance stand out. I never worry about my car anymore thanks to their excellent support.`,
+    image: PersonIcon,
     dark: true,
   },
   {
     id: 6,
-    name: "WILLAMS",
-    description: `Our flagship plan that offers all-inclusive coverage for major mechanical and electrical systems including the engine, automatic transmission, air conditioning, suspension, braking, steering, fuel injection system, oil seals`,
-    image: "/images/download.jpeg",
+    name: "Rahul Bhansali",
+    description: `Professional, reliable, and transparent. MAS Assurance is the best choice for anyone looking for trustworthy car insurance coverage.`,
+    image: PersonIcon,
     dark: false,
   },
 ];
@@ -77,7 +77,7 @@ export default function Testimonials() {
     };
   }, []);
 
-  const loopedCards = [...cards, ...cards];
+  const loopedCards = [...testimonials, ...testimonials];
 
   return (
     <section className="bg-black py-16 max-w-screen-2xl mx-auto">
@@ -97,17 +97,21 @@ export default function Testimonials() {
                 card.dark ? "bg-black text-white" : "bg-white text-black"
               }`}
             >
-              <div className="w-10 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 sm:border-4 border-yellow-500 bg-white">
-                <Image
-                  src={card.image}
-                  alt={card.name}
-                  width={56}
-                  height={56}
-                  className="object-cover w-full h-full"
+              <div className="w-10 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 sm:border-4 border-yellow-500 bg-white flex items-center justify-center">
+                <card.image
+                  className={`w-full h-full p-2  text-yellow-500 rounded-2xl ${
+                    card.dark ? "bg-white" : "bg-black"
+                  }`}
+                  fill="currentColor"
                 />
               </div>
+
               <div className="pt-3 sm:pt-4 pl-2 flex flex-col h-full">
-                <h2 className="font-bold text-base sm:text-lg mb-1 sm:mb-2 whitespace-normal truncate">
+                <h2
+                  className={`font-bold text-base sm:text-lg mb-1 sm:mb-2 whitespace-normal truncate ${
+                    card.dark ? "text-yellow-500" : "text-black"
+                  }`}
+                >
                   {card.name}
                 </h2>
                 <p className="text-xs sm:text-sm italic whitespace-normal line-clamp-5 break-words">

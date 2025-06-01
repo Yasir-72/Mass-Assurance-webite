@@ -1,5 +1,6 @@
 import React from "react";
 import GetQuote from "./getquote";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -22,31 +23,39 @@ export default function Footer() {
               ready to help you get the perfect insurance quote.
             </p>
 
-            <GetQuote/>
+            <GetQuote />
           </div>
 
           {/* Quick Links */}
           <div className="w-full md:w-1/3 flex flex-col items-center">
-            <h3 className="text-xl font-bold text-white mb-4">Quick <span className="text-yellow-500">Links</span></h3>
+            <h3 className="text-xl font-bold text-white mb-4">
+              Quick <span className="text-yellow-500">Links</span>
+            </h3>
             <ul className="space-y-2 text-center">
-              {["Home", "About Us", "Services", "Portfolio", "Contact"].map(
-                (label, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={`/${label.toLowerCase().replace(/\s+/g, "")}`}
-                      className="hover:text-yellow-500 transition-colors duration-200"
-                    >
-                      {label}
-                    </a>
-                  </li>
-                )
-              )}
+              {[
+                { href: "/", label: "Home" },
+                { href: "/about", label: "About Us" },
+                { href: "/insurance", label: "Insurance" },
+                { href: "/contact", label: "Contact Us" },
+              ].map((item, idx) => (
+                <li key={idx}>
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="hover:text-yellow-500 transition-colors duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact & Social */}
           <div className="w-full md:w-1/3 items-center md:items-end flex flex-col">
-            <h3 className="text-xl font-bold text-white mb-4">Contact <span className="text-yellow-500">Us</span></h3>
+            <h3 className="text-xl font-bold text-white mb-4">
+              Contact <span className="text-yellow-500">Us</span>
+            </h3>
             <p className="text-gray-400">123 Web Ave, Mumbai, India</p>
             <p className="text-gray-400 mt-1">+91 98765 43210</p>
             <p className="text-gray-400 mt-1">hello@webify.com</p>
@@ -66,7 +75,7 @@ export default function Footer() {
                 {
                   label: "Instagram",
                   svgPath:
-                    "M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.333 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.069 1.646.069 4.84s-.012 3.574-.069 4.84c-.062 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.069c-1.366-.062-2.633-.333-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.577 2.163 15.197 2.163 12s.012-3.574.069-4.84c.062-1.366.333-2.633 1.308-3.608C4.523 2.496 5.79 2.225 7.156 2.163 8.422 2.105 8.802 2.163 12 2.163zm0-2.163C8.737 0 8.332.015 7.052.072 5.691.129 4.397.443 3.312 1.528 2.227 2.613 1.913 3.907 1.856 5.268.799 6.547.798 6.947.798 12c0 5.053.015 5.453.058 6.732.057 1.361.371 2.655 1.456 3.74 1.085 1.085 2.379 1.399 3.74 1.456 1.279.043 1.679.058 6.732.058s5.453-.015 6.732-.058c1.361-.057 2.655-.371 3.74-1.456 1.085-1.085 1.399-2.379 1.456-3.74.043-1.279.058-1.679.058-6.732s-.015-5.453-.058-6.732c-.057-1.361-.371-2.655-1.456-3.74-1.085-1.085-2.379-1.399-3.74-1.456C17.453.015 17.053 0 12 0z",
+                    "M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 1.5h-9A4 4 0 0 0 3.5 7.5v9A4 4 0 0 0 7.5 20.5h9A4 4 0 0 0 20.5 16.5v-9A4 4 0 0 0 16.5 3.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.88a1.12 1.12 0 1 1-2.24 0 1.12 1.12 0 0 1 2.24 0z",
                 },
               ].map((icon, idx) => (
                 <a
