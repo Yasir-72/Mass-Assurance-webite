@@ -2,7 +2,19 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import {
+  ChevronRight,
+  ShieldCheck,
+  Heart,
+  Zap,
+  CheckCircle,
+  Award,
+  Layers,
+  Cpu,
+  Users,
+  Shield,
+  Wrench,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function AboutPageContent() {
@@ -15,22 +27,22 @@ export default function AboutPageContent() {
 
   const values = [
     {
-      icon: "/icons/integrity.svg",
+      Icon: ShieldCheck,
       title: "Integrity",
       desc: "Honesty, transparency, and accountability are at the core of everything we do.",
     },
     {
-      icon: "/icons/customer-first.svg",
+      Icon: Heart,
       title: "Customer First",
       desc: "We build long-term relationships by listening, personalizing, and exceeding expectations.",
     },
     {
-      icon: "/icons/innovation.svg",
+      Icon: Zap,
       title: "Innovation",
       desc: "Smart tools and predictive analytics simplify protection and maximize convenience.",
     },
     {
-      icon: "/icons/quality.svg",
+      Icon: CheckCircle,
       title: "Quality Assurance",
       desc: "Certified centers, trained technicians, and genuine OEM parts guarantee world-class care.",
     },
@@ -38,46 +50,45 @@ export default function AboutPageContent() {
 
   const highlights = [
     {
-      icon: "/icons/luxury.svg",
+      Icon: Award,
       title: "Tailored for Luxury Vehicles",
       desc: "Component-level plans designed for premium brands—German engineering, Italian performance, and more.",
     },
     {
-      icon: "/icons/ecosystem.svg",
+      Icon: Layers,
       title: "End-to-End Service Ecosystem",
       desc: "Extended warranties, service packages, and 24/7 assistance in one seamless platform.",
     },
     {
-      icon: "/icons/tech.svg",
+      Icon: Cpu,
       title: "Technology-Driven",
       desc: "Digital claims, proactive reminders, and a smart, simplified ownership experience.",
     },
     {
-      icon: "/icons/partners.svg",
+      Icon: Users,
       title: "Authorized Partners",
       desc: "Repairs at OEM dealerships or MAS-approved facilities with genuine parts.",
     },
   ];
-  // Features for "Why Choose Us"
+
   const features = [
     {
-      icon: "/icons/coverage.svg",
+      Icon: Shield,
       title: "Comprehensive Coverage",
       desc: "From engine to electronics—our plans protect every inch of your luxury vehicle.",
     },
     {
-      icon: "/icons/fast-claims.svg",
+      Icon: Zap,
       title: "Fast Claims",
       desc: "Lightning-fast claims processing with dedicated concierge support, 24/7.",
     },
     {
-      icon: "/icons/network.svg",
+      Icon: Wrench,
       title: "Vehicle Servicing",
       desc: "Comprehensive luxury vehicle servicing at our certified centers—ensuring peak performance and longevity.",
     },
   ];
 
-  // Leadership Team
   const team = [
     { name: "Alice Johnson", role: "CEO", img: "/images/dummy1.png" },
     { name: "Mark Thompson", role: "CTO", img: "/images/dummy2.png" },
@@ -173,13 +184,7 @@ export default function AboutPageContent() {
               transition={{ delay: i * 0.2 }}
               className="bg-zinc-900 p-6 rounded-2xl shadow-lg hover:shadow-white/70 transition-shadow duration-500 text-center"
             >
-              <Image
-                src={v.icon}
-                alt={v.title}
-                width={64}
-                height={64}
-                className="mx-auto mb-4"
-              />
+              <v.Icon size={64} className="mx-auto mb-4 text-yellow-500" />
               <h3 className="text-xl font-semibold mb-2 text-white">
                 {v.title}
               </h3>
@@ -191,7 +196,7 @@ export default function AboutPageContent() {
 
       {/* What Sets Us Apart */}
       <section className="space-y-12 px-4 sm:px-6 lg:px-16">
-        <div className="px-3 md:px-12 py-12 md:p-12 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl ">
+        <div className="px-3 md:px-12 py-12 md:p-12 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -199,6 +204,7 @@ export default function AboutPageContent() {
           >
             Why MAS <span className="text-yellow-500">Assurance</span>
           </motion.h2>
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {highlights.map((h, i) => (
               <motion.div
@@ -206,29 +212,34 @@ export default function AboutPageContent() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.2 }}
-                className="relative group flex flex-col items-center text-center p-6 bg-gray-900 rounded-2xl overflow-hidden hover:cursor-pointer"
+                className="relative group flex flex-col items-center text-center p-6 bg-gray-900 rounded-2xl shadow-lg hover:shadow-yellow-500/50 transform hover:scale-105 transition-transform duration-300"
               >
-                  {/* subtle gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity" />
-                <Image
-                  src={h.icon}
-                  alt={h.title}
-                  width={48}
-                  height={48}
-                  className="mb-4"
-                />
-                <h4 className="font-semibold text-lg mb-2 text-white">
-                  {h.title}
-                </h4>
-                <p className="text-white text-sm">{h.desc}</p>
+                {/* subtle gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity rounded-2xl" />
+
+                <div className="relative z-10 flex flex-col items-center">
+                  {/* icon */}
+                  <div className="mb-4">
+                    <h.Icon size={36} className="text-yellow-500" />
+                  </div>
+                  {/* title */}
+                  <h4 className="text-lg font-semibold text-white mb-2">
+                    {h.title}
+                  </h4>
+                  {/* description */}
+                  <p className="text-gray-300 text-sm">{h.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
       {/* Leadership Team */}
       <section className="max-w-6xl mx-auto px-6 text-center space-y-12">
-        <h2 className="text-4xl font-bold text-white">Leadership <span className="text-yellow-500">Team</span></h2>
+        <h2 className="text-4xl font-bold text-white">
+          Leadership <span className="text-yellow-500">Team</span>
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
           {team.map((member, i) => (
             <motion.div
@@ -255,7 +266,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* Tech Support */}
-      <section className="max-w-6xl mx-auto px-3 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl ">
+      <section className="max-w-6xl mx-auto px-3 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl">
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold text-white text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -277,24 +288,18 @@ export default function AboutPageContent() {
           {features.map((feat, i) => (
             <motion.div
               key={i}
-              className="relative group w-full md:w-1/3 p-8 bg-gray-900 rounded-2xl overflow-hidden hover:cursor-pointer"
+              className="relative group w-full md:w-1/3 p-8 bg-gray-900 rounded-2xl shadow-lg hover:shadow-yellow-500/50 transform hover:scale-105 transition-transform duration-300 overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.2 }}
             >
               {/* subtle gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500 via-transparent to-transparent opacity-10 group-hover:opacity-20 transition-opacity rounded-2xl" />
 
               <div className="relative z-10 flex flex-col items-center text-center">
                 {/* icon circle */}
                 <div className="w-20 h-20 mb-4 flex items-center justify-center bg-yellow-500 rounded-full">
-                  <Image
-                    src={feat.icon}
-                    alt={feat.title}
-                    width={48}
-                    height={48}
-                    className="object-contain"
-                  />
+                  <feat.Icon size={48} className="text-white" />
                 </div>
 
                 {/* title */}

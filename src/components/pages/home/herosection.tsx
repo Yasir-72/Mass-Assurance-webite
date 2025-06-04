@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import TalkToAdvisor from "@/components/layout/talktoadvisor";
 import { motion } from "framer-motion";
 import GetQuote from "@/components/layout/getquote";
 
@@ -10,7 +9,7 @@ export default function Herosection() {
     window.location.href = "tel:+918850687306";
   };
   return (
-    <section className="relative bg-black overflow-hidden mt-10 w-full">
+    <section className="relative bg-black overflow-hidden mt-15 w-full">
       {/* Content area */}
       <motion.div
         className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-16 relative z-20"
@@ -80,30 +79,31 @@ export default function Herosection() {
 
         <div className="absolute inset-0 flex flex-col items-start justify-center px-4 sm:px-6 lg:px-16 space-y-4">
           {/* Get Quote button */}
-         <GetQuote />
+          <GetQuote />
 
           {/* Talk to Advisor trigger */}
           <motion.button
-             className="px-5 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 group"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <span>Talk to Advisor</span>
-        <svg
-          className="w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
+            onClick={handleClick}
+            className="px-5 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 group"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span>Talk to Advisor</span>
+            <svg
+              className="w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
           </motion.button>
         </div>
       </motion.div>

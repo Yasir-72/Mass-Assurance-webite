@@ -16,7 +16,7 @@ interface QuoteFormInputs {
 
 export default function GetQuote() {
   const [isOpen, setIsOpen] = useState(false);
-  const [submissionError, setSubmissionError] = useState<string | null>(null); // 🔥 Error state
+  const [submissionError, setSubmissionError] = useState<string | null>(  null); // 🔥 Error state
   const {
     register,
     handleSubmit,

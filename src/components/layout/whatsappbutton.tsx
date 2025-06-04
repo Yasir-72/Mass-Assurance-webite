@@ -13,6 +13,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       className="
+      
         fixed 
         bottom-8 
         right-8 
@@ -40,8 +41,7 @@ export default function WhatsAppButton() {
         ease-in-out
       "
     >
-      <Image src="/images/whatsapp.png" alt="" width={24} height={24} />
-      <span>Chat with us</span>
+      <Image src="/images/whatsapp.png" alt="" width={50} height={50} className="w-8 h-8 md:w-12 md:h-12"/>
     </Link>
   );
 }

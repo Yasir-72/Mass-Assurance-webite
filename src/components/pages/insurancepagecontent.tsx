@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCircle2, Settings, ShieldCheck, Cpu, Truck } from "lucide-react";
-import Link from "next/link";
 import GetQuote from "../layout/getquote";
 
 const fadeInUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };

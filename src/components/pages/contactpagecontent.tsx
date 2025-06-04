@@ -147,7 +147,7 @@ export default function ContactPageContent() {
           <div className="space-y-8">
             <div className="h-80 rounded-2xl overflow-hidden shadow-2xl">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.9142937618835!2d72.85624397498299!3d19.28609298196224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b048ed46be7d%3A0x69f0472d4346465b!2sNavjeevan%20Society%2C%20Lamington%20Road!5e0!3m2!1sen!2sin!4v1747159944966"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.213079224663!2d72.8195598!3d18.9661948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce6ce5bd005f%3A0xa7bc82d72a6f34ca!2sNavjeevan%20Society%20Wing-A%2C%20Lamington%20Rd%2C%20Navjeevan%20Society%2C%20Navjeevan%20Area%2C%20Dalal%20Estate%2C%20Mumbai%20Central%2C%20Mumbai%2C%20Maharashtra%20400008!5e0!3m2!1sen!2sin!4v1749050056051!5m2!1sen!2sin6"
                 width="100%"
                 height="100%"
                 className="border-0"
@@ -162,8 +162,8 @@ export default function ContactPageContent() {
                   label: "Address",
                   text: "Navjeevan Society, Building 3, 11th Floor, Lamington Road, Mumbai-400008",
                 },
-                { icon: Phone, label: "Phone", text: "+91 70395 12345" },
-                { icon: Mail, label: "Email", text: "info@masassurance.com" },
+                { icon: Phone, label: "Phone", text: "+91 7039512345" },
+                { icon: Mail, label: "Email", text: "masassurance358@gmail.com" },
               ].map((item, i) => (
                 <div
                   key={i}

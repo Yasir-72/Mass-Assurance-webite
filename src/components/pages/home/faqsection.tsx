@@ -15,35 +15,35 @@ const FAQ_ITEMS: FAQItem[] = [
     question: "Is coverage valid if I go to a non-authorized service center?",
     answer:
       "Only in true emergencies—repairs at non-authorized shops are covered up to a capped amount; any costs beyond that cap are out of pocket.",
-    image: "/images/faq-0.jpg",
+    image: "/images/faq1.jpg",
     defaultOpen: false,
   },
   {
     question: "Which authorized service stations can I use?",
     answer:
       "Any shop listed on our “Authorized Repair Centers” page—these are certified luxury-car dealers or independent garages approved by your manufacturer.",
-    image: "/images/faq-1.jpg",
+    image: "/images/faq2.jpeg",
     defaultOpen: false,
   },
   {
     question: "What does my luxury-car policy cover?",
     answer:
       "Collision/comprehensive damage, agreed-value payout, OEM-parts repairs, theft/vandalism, exotic rental reimbursement, roadside assistance, and optional international coverage.",
-    image: "/images/faq-2.jpg",
+    image: "/images/faq3.jpeg",
     defaultOpen: false,
   },
   {
     question: "What is the duration of the policy and renewal process?",
     answer:
       "Policies run 12 months; you’ll receive a renewal notice 30 days before expiration, with a 15-day grace period for reinstatement if you miss the due date.",
-    image: "/images/faq-3.jpg",
+    image: "/images/faq4.jpeg",
     defaultOpen: false,
   },
   {
     question: "How does the claim process work?",
     answer:
       "Report the incident via our 24/7 hotline or online, we assign a luxury-car adjuster, inspect at an authorized center, approve OEM-based repairs (usually within 24 hours), and pay the shop directly—plus arrange a premium rental if you’ve opted in.",
-    image: "/images/faq-4.jpg",
+    image: "/images/faq5.jpeg",
     defaultOpen: false,
   },
   {
@@ -51,14 +51,14 @@ const FAQ_ITEMS: FAQItem[] = [
       "Can I customize my coverage if I have aftermarket modifications?",
     answer:
       "Yes. We offer optional coverage add-ons for aftermarket parts (e.g., custom wheels, performance tuning, audio systems). Simply provide us with receipts or valuation details, and we’ll agree on their insured value upfront to ensure full replacement cost.",
-    image: "/images/faq-5.jpg",
+    image: "/images/faq6.jpeg",
     defaultOpen: false,
   },
   {
     question: "Do you provide concierge pick-up and delivery during repairs?",
     answer:
       "Absolutely. For qualifying policies, we offer complimentary concierge service: we’ll pick up your vehicle from home or work, take it to the authorized center, and return it to you once repairs are complete.",
-    image: "/images/faq-6.jpg",
+    image: "/images/faq7.jpeg",
     defaultOpen: false,
   },
 ];

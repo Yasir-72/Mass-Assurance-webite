@@ -89,7 +89,7 @@ export default function ServicePackages() {
         </div>
         <div className="flex justify-center mt-5">
           <Link
-            href="/quote"
+            href="/insurance"
             className="mt-6 inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold px-8 py-4 rounded-full shadow-xl transform hover:scale-105 transition "
           >
             Explore the full package

@@ -15,7 +15,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-black w-full fixed top-0 z-50">
+    <header className="bg-black/70 w-full fixed top-0 z-50">
       <div className="max-w-screen-2xl mx-auto  flex items-center justify-between  h-24  relative ">
         {/* Logo */}
         <Link href="/">
