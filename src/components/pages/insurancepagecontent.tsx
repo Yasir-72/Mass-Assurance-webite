@@ -17,7 +17,7 @@ export default function InsurancePageContent() {
       variants={stagger}
     >
       {/* Hero Section */}
-      <section className="relative h-[400px] bg-gradient-to-r from-yellow-500 to-yellow-600 overflow-hidden rounded-b-3xl">
+      <section className="relative h-[400px] bg-gradient-to-r from-yellow-500 to-yellow-600 overflow-hidden rounded-b-3xl mt-15 md:mt-6">
         <div className="absolute inset-0 opacity-20">
           <Image
             src="/images/luxury-car-hero.jpg"
