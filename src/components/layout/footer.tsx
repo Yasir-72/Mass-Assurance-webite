@@ -56,11 +56,12 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white mb-4">
               Contact <span className="text-yellow-500">Us</span>
             </h3>
-            <p className="text-gray-400 text-center md:text-end">Navjeevan Society, Building no-3, 11th floor, Office no. 17,
+            <p className="text-gray-400 text-center md:text-end">
+              Navjeevan Society, Building no-3, 11th floor, Office no. 17,
               Lamington Road, Grant Road, Mumbai-40000823 Web Ave, Mumbai, India
             </p>
-            <p className="text-gray-400 mt-1">+91 7039512345</p>
-            <p className="text-gray-400 mt-1">masassurance358@gmail.com</p>
+            <p className="text-gray-400 mt-1">+91 9324823450</p>
+            <p className="text-gray-400 mt-1">info@masassurance.com</p>
             <div className="flex space-x-4 mt-4">
               {[
                 // Social Icons

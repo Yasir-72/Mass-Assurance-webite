@@ -244,7 +244,7 @@ export default function InsurancePageContent() {
       </section>
 
       {/* Comparison Table */}
-      <motion.section
+      {/* <motion.section
         className="overflow-x-auto bg-black px-20"
         variants={fadeInUp}
       >
@@ -338,10 +338,13 @@ export default function InsurancePageContent() {
             ))}
           </tbody>
         </motion.table>
-      </motion.section>
+      </motion.section> */}
 
       {/* Final CTA */}
-      <motion.section className="flex flex-col items-center text-center py-16 mx-auto" variants={fadeInUp}>
+      <motion.section
+        className="flex flex-col items-center text-center py-16 mx-auto"
+        variants={fadeInUp}
+      >
         <motion.h2 className="text-3xl font-bold text-white mb-4">
           Ready to Protect Your Investment?
         </motion.h2>
@@ -349,7 +352,7 @@ export default function InsurancePageContent() {
           Contact us for a personalized quote and drive with absolute peace of
           mind.
         </motion.p>
-        <GetQuote/>
+        <GetQuote />
       </motion.section>
     </motion.main>
   );

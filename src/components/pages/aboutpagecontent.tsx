@@ -89,12 +89,12 @@ export default function AboutPageContent() {
     },
   ];
 
-  const team = [
-    { name: "Alice Johnson", role: "CEO", img: "/images/dummy1.png" },
-    { name: "Mark Thompson", role: "CTO", img: "/images/dummy2.png" },
-    { name: "Sara Lee", role: "COO", img: "/images/dummy1.png" },
-    { name: "David Kim", role: "CFO", img: "/images/dummy2.png" },
-  ];
+  // const team = [
+  //   { name: "Alice Johnson", role: "CEO", img: "/images/dummy1.png" },
+  //   { name: "Mark Thompson", role: "CTO", img: "/images/dummy2.png" },
+  //   { name: "Sara Lee", role: "COO", img: "/images/dummy1.png" },
+  //   { name: "David Kim", role: "CFO", img: "/images/dummy2.png" },
+  // ];
 
   return (
     <main className="flex flex-col w-full space-y-20 ">
@@ -236,7 +236,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* Leadership Team */}
-      <section className="max-w-6xl mx-auto px-6 text-center space-y-12">
+      {/* <section className="max-w-6xl mx-auto px-6 text-center space-y-12">
         <h2 className="text-4xl font-bold text-white">
           Leadership <span className="text-yellow-500">Team</span>
         </h2>
@@ -263,7 +263,7 @@ export default function AboutPageContent() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Tech Support */}
       <section className="max-w-6xl mx-auto px-3 py-16 bg-gradient-to-r from-gray-800 to-black rounded-2xl shadow-xl">

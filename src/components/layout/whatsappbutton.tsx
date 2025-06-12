@@ -1,8 +1,9 @@
-// components/WhatsAppButton.js
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 
-const WHATSAPP_NUMBER = "8850687306";
+import Image from "next/image";
+import Link from "next/link";
+
+const WHATSAPP_NUMBER = "919324823450"; // Correct format: digits only
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export default function WhatsAppButton() {
@@ -13,7 +14,6 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       className="
-      
         fixed 
         bottom-8 
         right-8 
@@ -27,21 +27,25 @@ export default function WhatsAppButton() {
         focus:ring-2 
         focus:ring-green-300 
         focus:ring-offset-2
-
         text-white 
         text-sm 
         font-medium 
         px-4 
         py-2 
         rounded-full
-
         shadow-lg 
         transition 
         duration-200 
         ease-in-out
       "
     >
-      <Image src="/images/whatsapp.png" alt="" width={50} height={50} className="w-8 h-8 md:w-12 md:h-12"/>
+      <Image
+        src="/images/whatsapp.png"
+        alt="WhatsApp Icon"
+        width={50}
+        height={50}
+        className="w-8 h-8 md:w-12 md:h-12"
+      />
     </Link>
   );
 }

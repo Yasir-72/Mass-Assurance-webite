@@ -93,14 +93,14 @@ export default function ContactSection() {
               <span className="mr-3 text-yellow-500">☎️</span>
               <div>
                 <h3 className="font-semibold">Phone</h3>
-                <p className="text-gray-400">+91 7039512345</p>
+                <p className="text-gray-400">+91 9324823450</p>
               </div>
             </li>
             <li className="flex items-start">
               <span className="mr-3 text-yellow-500">✉️</span>
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="text-gray-400">masassurance358@gmail.com</p>
+                <p className="text-gray-400">info@masassurance.com</p>
               </div>
             </li>
           </ul>

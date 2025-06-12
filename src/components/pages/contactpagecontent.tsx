@@ -162,8 +162,8 @@ export default function ContactPageContent() {
                   label: "Address",
                   text: "Navjeevan Society, Building 3, 11th Floor, Lamington Road, Mumbai-400008",
                 },
-                { icon: Phone, label: "Phone", text: "+91 7039512345" },
-                { icon: Mail, label: "Email", text: "masassurance358@gmail.com" },
+                { icon: Phone, label: "Phone", text: "+91 9324823450" },
+                { icon: Mail, label: "Email", text: "info@masassurance.com" },
               ].map((item, i) => (
                 <div
                   key={i}
