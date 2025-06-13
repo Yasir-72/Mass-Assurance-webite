@@ -1,265 +1,385 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Star, Truck, ShieldCheck, Headset } from "lucide-react";
+import {
+  X,
+  Car,
+  // Truck,
+  // ShieldCheck,
+  // Headset,
+  MoveRight,
+  Calendar as CalendarIcon,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { PhoneInput } from "@/components/ui/phoneinput";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { Textarea } from "@/components/ui/textarea";
 
-interface QuoteFormInputs {
-  name: string;
-  email: string;
-  mobile: string;
-  carBrand: string;
-  carModel: string;
-  purchaseDate: string;
-}
+// Schema for validation
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  number: z.string().min(1, "Phone number is required"),
+  date: z.coerce.date(),
+  address: z.string().min(1, "Address is required"),
+  brand: z.string().min(1, "Car brand is required"),
+  model: z.string().min(1, "Car model is required"),
+  manufacture: z.string().min(1, "Manufacture year is required"),
+  registration: z.string().min(1, "Registration number is required"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function GetQuote() {
   const [isOpen, setIsOpen] = useState(false);
-  const [submissionError, setSubmissionError] = useState<string | null>(  null); // 🔥 Error state
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
-    reset,
-  } = useForm<QuoteFormInputs>();
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      number: "",
+      date: new Date(),
+      address: "",
+      brand: "",
+      model: "",
+      manufacture: "",
+      registration: "",
+    },
+  });
 
-  const onSubmit: SubmitHandler<QuoteFormInputs> = async (data) => {
-    setSubmissionError(null); // 🔥 Clear previous error
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/sendpdf`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        }
-      );
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    setIsOpen(false);
+  };
 
-      if (!res.ok) {
-        throw new Error(
-          "Server responded with an error. Please try again later."
-        ); // 🔥 Custom error
-      }
-
-      console.log("Quote request:", data);
-      reset();
-    } catch (error) {
-      console.error("Error submitting form", error);
-      setSubmissionError(
-        "We’re facing a server Problem. Please retry in a few minutes."
-      ); // 🔥 User-friendly message
-    }
+  const fieldVariant = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1 },
+    }),
   };
 
   return (
     <>
-      {/* Trigger Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 group"
+        className="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold rounded-full shadow-lg hover:scale-105 transition flex items-center justify-center gap-2 text-sm sm:text-base group"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
         <span>Get a Quote</span>
-        <svg
-          className="w-5 h-5 transition-transform duration-300 transform group-hover:translate-x-1"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
-        </svg>
+        <MoveRight className="w-5 h-5 transition-transform transform group-hover:translate-x-1" />
       </motion.button>
 
-      {/* Modal Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/10 flex items-center justify-center p-4 z-50 overflow-y-auto"
+            className="fixed inset-0 bg-black/20 flex items-center justify-center p-4 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Modal Container */}
             <motion.div
-              className="bg-gradient-to-br from-gray-900 to-black text-white rounded-3xl w-full max-w-md sm:max-w-2xl px-2 md:px-6 py-16 relative shadow-2xl max-h-[90vh] overflow-y-auto scrollbar-hidden"
+              className="bg-gradient-to-br from-gray-900 to-black text-white rounded-3xl w-full max-w-lg sm:max-w-xl max-h-[90vh] overflow-y-auto scrollbar-hidden px-6 py-12 relative shadow-2xl"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              {/* Close Button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-200"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 "
                 aria-label="Close"
               >
-                <X size={24} />
+                <X
+                  size={24}
+                  strokeWidth={3}
+                  className="text-yellow-500 rounded-xl size-8"
+                />
               </button>
 
-              {/* Header */}
-              <div className="text-center mb-6 sm:mb-8 space-y-2">
-                <Star className="mx-auto w-10 h-10 sm:w-12 sm:h-12 text-yellow-400 animate-pulse" />
+              <div className="text-center mb-6 space-y-1">
+                <Car className="mx-auto w-16 h-16 text-yellow-400 animate-pulse" />
                 <h2 className="text-2xl sm:text-3xl font-extrabold">
                   Unlock Your Premium Quote
                 </h2>
                 <p className="text-gray-400 text-sm sm:text-base">
-                  Experience transparent pricing and bespoke coverage for your
-                  luxury ride.
+                  Transparent pricing & bespoke coverage for your luxury ride.
                 </p>
               </div>
 
-              {/* Form */}
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Input fields ... unchanged */}
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      {...register("name", { required: "Name required" })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.name && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.name.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      {...register("email", { required: "Email required" })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.email && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <input
-                      type="tel"
-                      placeholder="Mobile Number"
-                      {...register("mobile", {
-                        required: "Mobile required",
-                        pattern: {
-                          value: /^[0-9]{10}$/,
-                          message: "Enter 10 digits",
-                        },
-                      })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.mobile && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.mobile.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Car Brand (e.g. Mercedes)"
-                      {...register("carBrand", { required: "Brand required" })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.carBrand && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.carBrand.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Car Model (e.g. S-Class)"
-                      {...register("carModel", { required: "Model required" })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.carModel && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.carModel.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <input
-                      type="date"
-                      {...register("purchaseDate", {
-                        required: "Purchase date required",
-                      })}
-                      className="w-full p-3 sm:p-4 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    />
-                    {errors.purchaseDate && (
-                      <p className="text-red-400 text-xs mt-1">
-                        {errors.purchaseDate.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* 🔥 Updated Submit Button with Spinner + State */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3 sm:py-4 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-bold rounded-full hover:from-yellow-600 hover:to-yellow-800 transition disabled:opacity-50"
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-6"
                 >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center space-x-2">
-                      <svg
-                        className="animate-spin h-5 w-5 text-black"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
+                  <h3 className="text-lg font-semibold text-yellow-500">
+                    Customer Details
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      { name: "name", label: "Name", placeholder: "Full Name" },
+                      {
+                        name: "email",
+                        label: "Email",
+                        placeholder: "Email Address",
+                      },
+                    ].map((field, i) => (
+                      <FormField
+                        key={field.name}
+                        control={form.control}
+                        name={field.name as any}
+                        render={({ field: f }) => (
+                          <motion.div
+                            custom={i}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fieldVariant}
+                          >
+                            <FormItem>
+                              <FormLabel>{field.label}</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...f}
+                                  placeholder={field.placeholder}
+                                  className={cn(
+                                    "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
+                                    // here is the tweak:
+                                    "border border-gray-600 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                                  )}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          </motion.div>
+                        )}
+                      />
+                    ))}
+                    <FormField
+                      control={form.control}
+                      name="number"
+                      render={({ field: f }) => (
+                        <motion.div
+                          custom={2}
+                          initial="hidden"
+                          animate="visible"
+                          variants={fieldVariant}
+                        >
+                          <FormItem>
+                            <FormLabel>Phone Number</FormLabel>
+                            <FormControl>
+                              <PhoneInput
+                                {...f}
+                                defaultCountry="IN"
+                                className={cn(
+                                  "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
+                                  "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                                )}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        </motion.div>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field: f }) => (
+                        <motion.div
+                          custom={3}
+                          initial="hidden"
+                          animate="visible"
+                          variants={fieldVariant}
+                        >
+                          <FormItem>
+                            <FormLabel>Date of Birth</FormLabel>
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  className={cn(
+                                    "w-full text-left bg-gray-800 placeholder-gray-500 text-white rounded-lg",
+                                    "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none flex justify-between items-center"
+                                  )}
+                                >
+                                  {f.value
+                                    ? format(f.value, "PPP")
+                                    : "Pick a date"}
+                                  <CalendarIcon className="ml-2 h-4 w-4 opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent align="center" className="p-0">
+                                <Calendar
+                                  mode="single"
+                                  selected={f.value}
+                                  onSelect={f.onChange}
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        </motion.div>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="address"
+                    render={({ field: f }) => (
+                      <motion.div
+                        custom={4}
+                        initial="hidden"
+                        animate="visible"
+                        variants={fieldVariant}
                       >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                        ></path>
-                      </svg>
-                      <span>Submitting...</span>
-                    </div>
-                  ) : isSubmitSuccessful ? (
-                    "Submitted!"
-                  ) : submissionError ? (
-                    "Retry in a few minutes"
-                  ) : (
-                    "Submit"
-                  )}
-                </button>
+                        <FormItem>
+                          <FormLabel>Address</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...f}
+                              placeholder="Your Address"
+                              className={cn(
+                                "bg-gray-800 placeholder-gray-500 text-white rounded-lg h-24 resize-none",
+                                "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                              )}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      </motion.div>
+                    )}
+                  />
+                  <h3 className="text-lg font-semibold text-yellow-400">
+                    Vehicle Details
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {[
+                      {
+                        name: "brand",
+                        label: "Car Brand",
+                        placeholder: "ex:Toyota",
+                      },
+                      {
+                        name: "model",
+                        label: "Car Model",
+                        placeholder: "ex:Fortuner",
+                      },
+                    ].map((field, i) => (
+                      <FormField
+                        key={field.name}
+                        control={form.control}
+                        name={field.name as any}
+                        render={({ field: f }) => (
+                          <motion.div
+                            custom={5 + i}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fieldVariant}
+                          >
+                            <FormItem>
+                              <FormLabel>{field.label}</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...f}
+                                  placeholder={field.placeholder}
+                                  className={cn(
+                                    "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
+                                    "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                                  )}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          </motion.div>
+                        )}
+                      />
+                    ))}
 
-                {/* 🔥 Error message */}
-                {submissionError && (
-                  <p className="text-red-400 text-center mt-2 text-sm">
-                    {submissionError}
-                  </p>
-                )}
-              </form>
+                    {[
+                      {
+                        name: "manufacture",
+                        label: "Manufacture Year",
+                        placeholder: "ex:2019",
+                      },
+                      {
+                        name: "registration",
+                        label: "Reg. No.",
+                        placeholder: "ex:MH01 CD 6789",
+                      },
+                    ].map((field, i) => (
+                      <FormField
+                        key={field.name}
+                        control={form.control}
+                        name={field.name as any}
+                        render={({ field: f }) => (
+                          <motion.div
+                            custom={7 + i}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fieldVariant}
+                          >
+                            <FormItem>
+                              <FormLabel>{field.label}</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...f}
+                                  placeholder={field.placeholder}
+                                  className={cn(
+                                    "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
+                                    "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
+                                  )}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          </motion.div>
+                        )}
+                      />
+                    ))}
+                  </div>
 
-              {/* Highlights Footer */}
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <Button
+                    type="submit"
+                    className="w-full py-5 font-bold rounded-full bg-gradient-to-r from-yellow-500 to-yellow-700 text-black hover:from-yellow-600 hover:to-yellow-800 transition focus:ring-2 focus:ring-yellow-400"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    {form.formState.isSubmitting
+                      ? "Submitting..."
+                      : form.formState.isSubmitSuccessful
+                      ? "Submitted!"
+                      : "Submit"}
+                  </Button>
+                </form>
+              </Form>
+
+              {/* <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   {
                     icon: <ShieldCheck className="w-5 h-5 text-yellow-400" />,
@@ -279,13 +399,13 @@ export default function GetQuote() {
                     className="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.2 }}
+                    transition={{ delay: 0.2 + i * 0.1 }}
                   >
                     {item.icon}
                     <span className="text-gray-300 text-sm">{item.label}</span>
                   </motion.div>
                 ))}
-              </div>
+              </div> */}
             </motion.div>
           </motion.div>
         )}

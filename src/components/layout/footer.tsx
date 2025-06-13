@@ -101,7 +101,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mb-5 pt-8 text-center text-gray-500 text-sm">
+        <div className="pb-5 pt-8 text-center text-gray-500 text-sm ">
           © {new Date().getFullYear()} Mas Assurance. All rights reserved.
         </div>
       </div>
