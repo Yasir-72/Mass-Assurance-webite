@@ -1,19 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  X,
-  Car,
-  // Truck,
-  // ShieldCheck,
-  // Headset,
-  MoveRight,
-  Calendar as CalendarIcon,
-} from "lucide-react";
+import { X, Car, MoveRight, Calendar as CalendarIcon } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,6 +45,8 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function GetQuote() {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,9 +62,34 @@ export default function GetQuote() {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const handleClose = () => {
+    form.reset();
     setIsOpen(false);
+  };
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setLoading(true);
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/sendPdf`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`Error ${response.status}: ${text}`);
+      }
+
+      toast.success(" Successfully submitted!");
+      handleClose(); // Close modal and reset form
+    } catch (error: any) {
+      console.error("Quote submission error:", error);
+      toast.error("Failed to submit quote. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fieldVariant = {
@@ -110,8 +130,8 @@ export default function GetQuote() {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-200 "
+                onClick={handleClose}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-200"
                 aria-label="Close"
               >
                 <X
@@ -139,6 +159,7 @@ export default function GetQuote() {
                   <h3 className="text-lg font-semibold text-yellow-500">
                     Customer Details
                   </h3>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       { name: "name", label: "Name", placeholder: "Full Name" },
@@ -167,7 +188,6 @@ export default function GetQuote() {
                                   placeholder={field.placeholder}
                                   className={cn(
                                     "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
-                                    // here is the tweak:
                                     "border border-gray-600 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
                                   )}
                                 />
@@ -178,6 +198,7 @@ export default function GetQuote() {
                         )}
                       />
                     ))}
+
                     <FormField
                       control={form.control}
                       name="number"
@@ -276,20 +297,32 @@ export default function GetQuote() {
                       </motion.div>
                     )}
                   />
+
                   <h3 className="text-lg font-semibold text-yellow-400">
                     Vehicle Details
                   </h3>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {[
                       {
                         name: "brand",
                         label: "Car Brand",
-                        placeholder: "ex:Toyota",
+                        placeholder: "ex: Toyota",
                       },
                       {
                         name: "model",
                         label: "Car Model",
-                        placeholder: "ex:Fortuner",
+                        placeholder: "ex: Fortuner",
+                      },
+                      {
+                        name: "manufacture",
+                        label: "Manufacture Year",
+                        placeholder: "ex: 2019",
+                      },
+                      {
+                        name: "registration",
+                        label: "Reg. No.",
+                        placeholder: "ex: MH01 CD 6789",
                       },
                     ].map((field, i) => (
                       <FormField
@@ -321,91 +354,19 @@ export default function GetQuote() {
                         )}
                       />
                     ))}
-
-                    {[
-                      {
-                        name: "manufacture",
-                        label: "Manufacture Year",
-                        placeholder: "ex:2019",
-                      },
-                      {
-                        name: "registration",
-                        label: "Reg. No.",
-                        placeholder: "ex:MH01 CD 6789",
-                      },
-                    ].map((field, i) => (
-                      <FormField
-                        key={field.name}
-                        control={form.control}
-                        name={field.name as any}
-                        render={({ field: f }) => (
-                          <motion.div
-                            custom={7 + i}
-                            initial="hidden"
-                            animate="visible"
-                            variants={fieldVariant}
-                          >
-                            <FormItem>
-                              <FormLabel>{field.label}</FormLabel>
-                              <FormControl>
-                                <Input
-                                  {...f}
-                                  placeholder={field.placeholder}
-                                  className={cn(
-                                    "bg-gray-800 placeholder-gray-500 text-white rounded-lg",
-                                    "border border-transparent focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 focus:outline-none"
-                                  )}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          </motion.div>
-                        )}
-                      />
-                    ))}
                   </div>
 
                   <Button
                     type="submit"
                     className="w-full py-5 font-bold rounded-full bg-gradient-to-r from-yellow-500 to-yellow-700 text-black hover:from-yellow-600 hover:to-yellow-800 transition focus:ring-2 focus:ring-yellow-400"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || loading}
                   >
-                    {form.formState.isSubmitting
+                    {form.formState.isSubmitting || loading
                       ? "Submitting..."
-                      : form.formState.isSubmitSuccessful
-                      ? "Submitted!"
                       : "Submit"}
                   </Button>
                 </form>
               </Form>
-
-              {/* <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  {
-                    icon: <ShieldCheck className="w-5 h-5 text-yellow-400" />,
-                    label: "100% OEM Parts",
-                  },
-                  {
-                    icon: <Truck className="w-5 h-5 text-yellow-400" />,
-                    label: "Free Roadside Support",
-                  },
-                  {
-                    icon: <Headset className="w-5 h-5 text-yellow-400" />,
-                    label: "24/7 Concierge Service",
-                  },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className="flex items-center space-x-2 bg-gray-800 p-3 rounded-lg"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + i * 0.1 }}
-                  >
-                    {item.icon}
-                    <span className="text-gray-300 text-sm">{item.label}</span>
-                  </motion.div>
-                ))}
-              </div> */}
             </motion.div>
           </motion.div>
         )}

@@ -18,14 +18,6 @@ export default function InsurancePageContent() {
     >
       {/* Hero Section */}
       <section className="relative h-[400px] bg-gradient-to-r from-yellow-500 to-yellow-600 overflow-hidden rounded-b-3xl mt-15 md:mt-6">
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src="/images/luxury-car-hero.jpg"
-            alt="Luxury car"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-6">
           <motion.h1
             variants={fadeInUp}
