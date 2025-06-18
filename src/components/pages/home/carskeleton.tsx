@@ -10,7 +10,6 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { X } from "lucide-react";
 
 const hotspots = [
   {

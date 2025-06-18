@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -82,9 +82,9 @@ export default function GetQuote() {
         throw new Error(`Error ${response.status}: ${text}`);
       }
 
-      toast.success(" Successfully submitted!");
-      handleClose(); // Close modal and reset form
-    } catch (error: any) {
+      toast.success("Successfully submitted!");
+      handleClose();
+    } catch (error: unknown) {
       console.error("Quote submission error:", error);
       toast.error("Failed to submit quote. Please try again.");
     } finally {
@@ -137,7 +137,7 @@ export default function GetQuote() {
                 <X
                   size={24}
                   strokeWidth={3}
-                  className="text-yellow-500 rounded-xl size-8"
+                  className="text-yellow-500 rounded-xl"
                 />
               </button>
 
@@ -161,18 +161,24 @@ export default function GetQuote() {
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      { name: "name", label: "Name", placeholder: "Full Name" },
-                      {
-                        name: "email",
-                        label: "Email",
-                        placeholder: "Email Address",
-                      },
-                    ].map((field, i) => (
+                    {(
+                      [
+                        {
+                          name: "name",
+                          label: "Name",
+                          placeholder: "Full Name",
+                        },
+                        {
+                          name: "email",
+                          label: "Email",
+                          placeholder: "Email Address",
+                        },
+                      ] as const
+                    ).map((field, i) => (
                       <FormField
                         key={field.name}
                         control={form.control}
-                        name={field.name as any}
+                        name={field.name}
                         render={({ field: f }) => (
                           <motion.div
                             custom={i}
@@ -303,32 +309,34 @@ export default function GetQuote() {
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      {
-                        name: "brand",
-                        label: "Car Brand",
-                        placeholder: "ex: Toyota",
-                      },
-                      {
-                        name: "model",
-                        label: "Car Model",
-                        placeholder: "ex: Fortuner",
-                      },
-                      {
-                        name: "manufacture",
-                        label: "Manufacture Year",
-                        placeholder: "ex: 2019",
-                      },
-                      {
-                        name: "registration",
-                        label: "Reg. No.",
-                        placeholder: "ex: MH01 CD 6789",
-                      },
-                    ].map((field, i) => (
+                    {(
+                      [
+                        {
+                          name: "brand",
+                          label: "Car Brand",
+                          placeholder: "ex: Toyota",
+                        },
+                        {
+                          name: "model",
+                          label: "Car Model",
+                          placeholder: "ex: Fortuner",
+                        },
+                        {
+                          name: "manufacture",
+                          label: "Manufacture Year",
+                          placeholder: "ex: 2019",
+                        },
+                        {
+                          name: "registration",
+                          label: "Reg. No.",
+                          placeholder: "ex: MH01 CD 6789",
+                        },
+                      ] as const
+                    ).map((field, i) => (
                       <FormField
                         key={field.name}
                         control={form.control}
-                        name={field.name as any}
+                        name={field.name}
                         render={({ field: f }) => (
                           <motion.div
                             custom={5 + i}
@@ -355,7 +363,6 @@ export default function GetQuote() {
                       />
                     ))}
                   </div>
-
                   <Button
                     type="submit"
                     className="w-full py-5 font-bold rounded-full bg-gradient-to-r from-yellow-500 to-yellow-700 text-black hover:from-yellow-600 hover:to-yellow-800 transition focus:ring-2 focus:ring-yellow-400"

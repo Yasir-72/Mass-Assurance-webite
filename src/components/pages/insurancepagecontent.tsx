@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCircle2, Settings, ShieldCheck, Cpu, Truck } from "lucide-react";
 import GetQuote from "../layout/getquote";
