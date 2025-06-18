@@ -122,7 +122,7 @@ const hotspots = [
     label: "Suspension for Selected Models",
     position: { x: "71%", y: "55%" },
     info: "The suspension system (springs, dampers, anti‑roll bars) supports the vehicle’s weight, absorbs bumps, and keeps tires in contact with the road. Selected performance or luxury models may include adaptive dampers or air springs for customizable ride comfort.",
-    imageSrc: "/images/suspension.jpg",
+    imageSrc: "images/Suspension.jpg",
   },
   {
     id: "Seat Belt SRS",

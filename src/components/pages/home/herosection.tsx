@@ -6,7 +6,7 @@ import GetQuote from "@/components/layout/getquote";
 
 export default function Herosection() {
   const handleClick = () => {
-    window.location.href = "tel:+918850687306";
+    window.location.href = "tel:+919324823450";
   };
   return (
     <section className="relative bg-black overflow-hidden mt-15 w-full">
