@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 // Define form data types
 interface ContactFormInputs {
@@ -29,25 +30,25 @@ export default function ContactSection() {
   // Submit handler with typed parameter
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/senddata`;
-      console.log("POSTing to:", url, "payload:", data);
-
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/send/senddata`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+      const payload = await res.json();
 
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`Error ${res.status}: ${text}`);
+        throw new Error(payload?.message || "Server error, please try again.");
       }
 
-      const json = await res.json();
-      console.log("Server response:", json);
+      toast.success("Successfully submitted!");
       reset();
-    } catch (err) {
-      console.error("Form submission error:", err);
+    } catch (error) {
+      console.error("Error sending data:", error);
+      toast.error("Failed to submit, please try again");
     }
   };
 

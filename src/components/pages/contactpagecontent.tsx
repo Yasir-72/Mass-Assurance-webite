@@ -2,6 +2,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { toast } from "sonner";
 import GetQuote from "../layout/getquote";
 
 interface ContactFormInputs {
@@ -29,10 +30,17 @@ export default function ContactPageContent() {
           body: JSON.stringify(data),
         }
       );
-      if (!res.ok) throw new Error();
+      const payload = await res.json();
+
+      if (!res.ok) {
+        throw new Error(payload?.message || "Server error, please try again.");
+      }
+
+      toast.success("Successfully submitted!");
       reset();
-    } catch {
-      console.error("Error sending data");
+    } catch (error) {
+      console.error("Error sending data:", error);
+      toast.error("Failed to submit, please try again");
     }
   };
 
